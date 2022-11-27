@@ -239,7 +239,7 @@ deck <- read.csv("https://gist.githubusercontent.com/garrettgman/9629323/raw/ee5
 
 Just make sure that the web address links directly to the file and not to a web page that links to the file. Usually, when you visit a data file's web address, the file will begin to download or the raw data will appear in your browser window.
 
-Note that websites that begin with \_<https://_> are secure websites, which means R may not be able to access the data provided at these links.
+Note that websites that begin with \_https://\_ are secure websites, which means R may not be able to access the data provided at these links.
 
 ### Saving Plain-Text Files
 
