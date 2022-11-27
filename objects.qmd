@@ -21,7 +21,7 @@ We'll start with the very basics. The most simple type of object in R is an *ato
 
 ## Atomic Vectors
 
-An atomic vector is just a simple vector of data. In fact, you've already made an atomic vector, your `die` object from [Project 1: Weighted Dice](#sec-project-dice). You can make an atomic vector by grouping some values of data together with `c`:
+An atomic vector is just a simple vector of data. In fact, you've already made an atomic vector, your `die` object from [Project 1: Weighted Dice](#sec-project-dice). You can make an atomic vector by grouping some values of data together with `c()`:
 
 ``` r
 die <- c(1, 2, 3, 4, 5, 6)
@@ -69,7 +69,7 @@ int <- 1L
 text <- "ace"
 ```
 
-Each type of atomic vector has its own convention (described below). R will recognize the convention and use it to create an atomic vector of the appropriate type. If you'd like to make atomic vectors that have more than one element in them, you can combine an element with the `c` function. Use the same convention with each element:
+Each type of atomic vector has its own convention (described below). R will recognize the convention and use it to create an atomic vector of the appropriate type. If you'd like to make atomic vectors that have more than one element in them, you can combine an element with the `c()` function. Use the same convention with each element:
 
 ``` r
 int <- c(1L, 5L)
@@ -227,7 +227,7 @@ Create an atomic vector that stores just the face names of the cards in a royal 
 Which type of vector will you use to save the names?
 :::
 
-A character vector is the most appropriate type of atomic vector in which to save card names. You can create one with the `c` function if you surround each name with quotation marks:
+A character vector is the most appropriate type of atomic vector in which to save card names. You can create one with the `c()` function if you surround each name with quotation marks:
 
 ``` r
 hand <- c("ace", "king", "queen", "jack", "ten")
@@ -465,7 +465,7 @@ class(die)
 
 A matrix is a special case of an atomic vector. For example, the `die` matrix is a special case of a double vector. Every element in the matrix is still a double, but the elements have been arranged into a new structure. R added a `class` attribute to `die` when you changed its dimensions. This class describes `die`'s new format. Many R functions will specifically look for an object's `class` attribute, and then handle the object in a predetermined way based on the attribute.
 
-Note that an object's `class` attribute will not always appear when you run `attributes()`; you may need to specifically search for it with `class`:
+Note that an object's `class` attribute will not always appear when you run `attributes()`; you may need to specifically search for it with `class()`:
 
 ``` r
 attributes(die)
@@ -473,7 +473,7 @@ attributes(die)
 ## [1] 2 3
 ```
 
-You can apply `class` to objects that do not have a `class` attribute. `class` will return a value based on the object's atomic type. Notice that the "class" of a double is "numeric," an odd deviation, but one I am thankful for. I think that the most important property of a double vector is that it contains numbers, a property that "numeric" makes obvious:
+You can apply `class()` to objects that do not have a `class` attribute. `class()` will return a value based on the object's atomic type. Notice that the "class" of a double is "numeric," an odd deviation, but one I am thankful for. I think that the most important property of a double vector is that it contains numbers, a property that "numeric" makes obvious:
 
 ``` r
 class("Hello")
@@ -483,7 +483,7 @@ class(5)
 ##  "numeric"
 ```
 
-You can also use `class` to set an object's `class` attribute, but this is usually a bad idea. R will expect objects of a class to share certain traits, such as attributes, that your object may not possess. You'll learn how to make and use your own classes in [Project 3: Slot Machine](#sec-project-slots).
+You can also use `class()` to set an object's `class` attribute, but this is usually a bad idea. R will expect objects of a class to share certain traits, such as attributes, that your object may not possess. You'll learn how to make and use your own classes in [Project 3: Slot Machine](#sec-project-slots).
 
 ### Dates and Times
 
@@ -660,7 +660,7 @@ In other cases, allowing only a single type of data is not a disadvantage. Vecto
 
 Lists are like atomic vectors because they group data into a one-dimensional set. However, lists do not group together individual values; lists group together R objects, such as atomic vectors and other lists. For example, you can make a list that contains a numeric vector of length 31 in its first element, a character vector of length 1 in its second element, and a new list of length 2 in its third element. To do this, use the `list()` function.
 
-`list()` creates a list the same way `c` creates a vector. Separate each element in the list with a comma:
+`list()` creates a list the same way `c()` creates a vector. Separate each element in the list with a comma:
 
 ``` r
 list1 <- list(100:130, "R", list(TRUE, FALSE))

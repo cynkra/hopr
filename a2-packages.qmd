@@ -18,7 +18,7 @@ install.packages("<package name>")
 
 This will search for the specified package in the collection of packages hosted on the CRAN site. When R finds the package, it will download it into a libraries folder on your computer. R can access the package here in future R sessions without reinstalling it. Anyone can write an R package and disseminate it as they like; however, almost all R packages are published through the CRAN website. CRAN tests each R package before publishing it. This doesn't eliminate every bug inside a package, but it does mean that you can trust a package on CRAN to run in the current version of R on your OS.
 
-You can install multiple packages at once by linking their names with R's concatenate function, `c`. For example, to install the ggplot2, reshape2, and dplyr packages, run:
+You can install multiple packages at once by linking their names with R's concatenate function, `c()`. For example, to install the ggplot2, reshape2, and dplyr packages, run:
 
 ``` r
 install.packages(c("ggplot2", "reshape2", "dplyr"))

@@ -72,7 +72,7 @@ attributes(deck)
 ## [37] 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
 ```
 
-R comes with many helper functions that let you set and access the most common attributes used in R. You've already met the `names()`, `dim()`, and `class` functions, which each work with an eponymously named attribute. However, R also has `row.names()`, `levels()`, and many other attribute-based helper functions. You can use any of these functions to retrieve an attribute's value:
+R comes with many helper functions that let you set and access the most common attributes used in R. You've already met the `names()`, `dim()`, and `class()` functions, which each work with an eponymously named attribute. However, R also has `row.names()`, `levels()`, and many other attribute-based helper functions. You can use any of these functions to retrieve an attribute's value:
 
 ``` r
 row.names(deck)
@@ -149,7 +149,7 @@ one_play
 ## [1] "B" "0" "B"
 ```
 
-R will generally ignore an object's attributes unless you give them a name that an R function looks for, like `names()` or `class`. For example, R will ignore the `symbols` attribute of `one_play` as you manipulate `one_play`:
+R will generally ignore an object's attributes unless you give them a name that an R function looks for, like `names()` or `class()`. For example, R will ignore the `symbols` attribute of `one_play` as you manipulate `one_play`:
 
 ``` r
 one_play + 1
@@ -424,7 +424,7 @@ methods(print)
 ##   Nonvisible functions are asterisked
 ```
 
-This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary()` and `head()` also call `UseMethod()`. More basic functions, like `c`, `+`, `-`, `<` and others also behave like generic functions, although they call `.Primitive()` instead of `UseMethod()`.
+This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary()` and `head()` also call `UseMethod()`. More basic functions, like `c()`, `+`, `-`, `<` and others also behave like generic functions, although they call `.Primitive()` instead of `UseMethod()`.
 
 The S3 system allows R functions to behave in different ways for different classes. You can use S3 to format your slot output. First, give your output its own class. Then write a print method for that class. To do this efficiently, you will need to know a little about how `UseMethod()` selects a method function to use.
 
