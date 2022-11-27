@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -80,13 +85,14 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
 <link href="./a5-debug.html" rel="next">
 <link href="./a3-updating.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -94,10 +100,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -185,155 +191,155 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a href="./dice.html" class="sidebar-item-text sidebar-link">Project 1: Weighted Dice</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a href="./dice.html" class="sidebar-item-text sidebar-link">Project 1: Weighted Dice</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Very Basics</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Packages and Help Pages</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a href="./cards.html" class="sidebar-item-text sidebar-link">Project 2: Playing Cards</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a href="./cards.html" class="sidebar-item-text sidebar-link">Project 2: Playing Cards</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./objects.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">R Objects</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./notation.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">R Notation</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./modifying.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying Values</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./environments.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Environments</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a href="./slots.html" class="sidebar-item-text sidebar-link">Project 3: Slot Machine</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a href="./slots.html" class="sidebar-item-text sidebar-link">Project 3: Slot Machine</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./programs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Programs</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./s3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">S3</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./loops.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Loops</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./speed.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Speed</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./a1-starting.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Installing R and RStudio</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./a2-packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./a3-updating.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Updating R and Its Packages</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./a4-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Loading and Saving Data in R</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./a5-debug.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Debugging R Code</span></a>
   </div>
 </li>
-    </ul>
+      </ul>
   </li>
     </ul>
     </div>
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-sets-in-base-r" id="toc-data-sets-in-base-r" class="nav-link active" data-scroll-target="#data-sets-in-base-r"> <span class="header-section-number">D.1</span> Data Sets in Base R</a></li>
-  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"> <span class="header-section-number">D.2</span> Working Directory</a></li>
-  <li><a href="#plain-text-files" id="toc-plain-text-files" class="nav-link" data-scroll-target="#plain-text-files"> <span class="header-section-number">D.3</span> Plain-text Files</a>
+  <li><a href="#data-sets-in-base-r" id="toc-data-sets-in-base-r" class="nav-link active" data-scroll-target="#data-sets-in-base-r"><span class="toc-section-number">D.1</span>  Data Sets in Base R</a></li>
+  <li><a href="#working-directory" id="toc-working-directory" class="nav-link" data-scroll-target="#working-directory"><span class="toc-section-number">D.2</span>  Working Directory</a></li>
+  <li><a href="#plain-text-files" id="toc-plain-text-files" class="nav-link" data-scroll-target="#plain-text-files"><span class="toc-section-number">D.3</span>  Plain-text Files</a>
   <ul class="collapse">
-  <li><a href="#read.table" id="toc-read.table" class="nav-link" data-scroll-target="#read.table"> <span class="header-section-number">D.3.1</span> read.table</a></li>
-  <li><a href="#the-read-family" id="toc-the-read-family" class="nav-link" data-scroll-target="#the-read-family"> <span class="header-section-number">D.3.2</span> The read Family</a></li>
-  <li><a href="#read.fwf" id="toc-read.fwf" class="nav-link" data-scroll-target="#read.fwf"> <span class="header-section-number">D.3.3</span> read.fwf</a></li>
-  <li><a href="#html-links" id="toc-html-links" class="nav-link" data-scroll-target="#html-links"> <span class="header-section-number">D.3.4</span> HTML Links</a></li>
-  <li><a href="#saving-plain-text-files" id="toc-saving-plain-text-files" class="nav-link" data-scroll-target="#saving-plain-text-files"> <span class="header-section-number">D.3.5</span> Saving Plain-Text Files</a></li>
-  <li><a href="#compressing-files" id="toc-compressing-files" class="nav-link" data-scroll-target="#compressing-files"> <span class="header-section-number">D.3.6</span> Compressing Files</a></li>
+  <li><a href="#read.table" id="toc-read.table" class="nav-link" data-scroll-target="#read.table"><span class="toc-section-number">D.3.1</span>  read.table</a></li>
+  <li><a href="#the-read-family" id="toc-the-read-family" class="nav-link" data-scroll-target="#the-read-family"><span class="toc-section-number">D.3.2</span>  The read Family</a></li>
+  <li><a href="#read.fwf" id="toc-read.fwf" class="nav-link" data-scroll-target="#read.fwf"><span class="toc-section-number">D.3.3</span>  read.fwf</a></li>
+  <li><a href="#html-links" id="toc-html-links" class="nav-link" data-scroll-target="#html-links"><span class="toc-section-number">D.3.4</span>  HTML Links</a></li>
+  <li><a href="#saving-plain-text-files" id="toc-saving-plain-text-files" class="nav-link" data-scroll-target="#saving-plain-text-files"><span class="toc-section-number">D.3.5</span>  Saving Plain-Text Files</a></li>
+  <li><a href="#compressing-files" id="toc-compressing-files" class="nav-link" data-scroll-target="#compressing-files"><span class="toc-section-number">D.3.6</span>  Compressing Files</a></li>
   </ul></li>
-  <li><a href="#r-files" id="toc-r-files" class="nav-link" data-scroll-target="#r-files"> <span class="header-section-number">D.4</span> R Files</a>
+  <li><a href="#r-files" id="toc-r-files" class="nav-link" data-scroll-target="#r-files"><span class="toc-section-number">D.4</span>  R Files</a>
   <ul class="collapse">
-  <li><a href="#saving-r-files" id="toc-saving-r-files" class="nav-link" data-scroll-target="#saving-r-files"> <span class="header-section-number">D.4.1</span> Saving R Files</a></li>
+  <li><a href="#saving-r-files" id="toc-saving-r-files" class="nav-link" data-scroll-target="#saving-r-files"><span class="toc-section-number">D.4.1</span>  Saving R Files</a></li>
   </ul></li>
-  <li><a href="#excel-spreadsheets" id="toc-excel-spreadsheets" class="nav-link" data-scroll-target="#excel-spreadsheets"> <span class="header-section-number">D.5</span> Excel Spreadsheets</a>
+  <li><a href="#excel-spreadsheets" id="toc-excel-spreadsheets" class="nav-link" data-scroll-target="#excel-spreadsheets"><span class="toc-section-number">D.5</span>  Excel Spreadsheets</a>
   <ul class="collapse">
-  <li><a href="#export-from-excel" id="toc-export-from-excel" class="nav-link" data-scroll-target="#export-from-excel"> <span class="header-section-number">D.5.1</span> Export from Excel</a></li>
-  <li><a href="#copy-and-paste" id="toc-copy-and-paste" class="nav-link" data-scroll-target="#copy-and-paste"> <span class="header-section-number">D.5.2</span> Copy and Paste</a></li>
-  <li><a href="#xlconnect" id="toc-xlconnect" class="nav-link" data-scroll-target="#xlconnect"> <span class="header-section-number">D.5.3</span> XLConnect</a></li>
-  <li><a href="#reading-spreadsheets" id="toc-reading-spreadsheets" class="nav-link" data-scroll-target="#reading-spreadsheets"> <span class="header-section-number">D.5.4</span> Reading Spreadsheets</a></li>
-  <li><a href="#writing-spreadsheets" id="toc-writing-spreadsheets" class="nav-link" data-scroll-target="#writing-spreadsheets"> <span class="header-section-number">D.5.5</span> Writing Spreadsheets</a></li>
+  <li><a href="#export-from-excel" id="toc-export-from-excel" class="nav-link" data-scroll-target="#export-from-excel"><span class="toc-section-number">D.5.1</span>  Export from Excel</a></li>
+  <li><a href="#copy-and-paste" id="toc-copy-and-paste" class="nav-link" data-scroll-target="#copy-and-paste"><span class="toc-section-number">D.5.2</span>  Copy and Paste</a></li>
+  <li><a href="#xlconnect" id="toc-xlconnect" class="nav-link" data-scroll-target="#xlconnect"><span class="toc-section-number">D.5.3</span>  XLConnect</a></li>
+  <li><a href="#reading-spreadsheets" id="toc-reading-spreadsheets" class="nav-link" data-scroll-target="#reading-spreadsheets"><span class="toc-section-number">D.5.4</span>  Reading Spreadsheets</a></li>
+  <li><a href="#writing-spreadsheets" id="toc-writing-spreadsheets" class="nav-link" data-scroll-target="#writing-spreadsheets"><span class="toc-section-number">D.5.5</span>  Writing Spreadsheets</a></li>
   </ul></li>
-  <li><a href="#loading-files-from-other-programs" id="toc-loading-files-from-other-programs" class="nav-link" data-scroll-target="#loading-files-from-other-programs"> <span class="header-section-number">D.6</span> Loading Files from Other Programs</a>
+  <li><a href="#loading-files-from-other-programs" id="toc-loading-files-from-other-programs" class="nav-link" data-scroll-target="#loading-files-from-other-programs"><span class="toc-section-number">D.6</span>  Loading Files from Other Programs</a>
   <ul class="collapse">
-  <li><a href="#connecting-to-databases" id="toc-connecting-to-databases" class="nav-link" data-scroll-target="#connecting-to-databases"> <span class="header-section-number">D.6.1</span> Connecting to Databases</a></li>
+  <li><a href="#connecting-to-databases" id="toc-connecting-to-databases" class="nav-link" data-scroll-target="#connecting-to-databases"><span class="toc-section-number">D.6.1</span>  Connecting to Databases</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jjallaire/hopr/edit/master/a4-data.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
@@ -345,8 +351,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title">
 <h1 class="title"><span id="sec-appendix-dataio" class="quarto-section-identifier d-none d-lg-block">Appendix D — Loading and Saving Data in R</span></h1>
 </div>
-
-
 
 
 
@@ -471,7 +475,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>R also comes with some prepackaged short cuts for <code>read.table</code>, shown in <a href="#tbl-shortcuts">Table&nbsp;<span>D.1</span></a>.</p>
 <div id="tbl-shortcuts" class="anchored">
 <table class="table">
-<caption>Table D.1: R’s read functions. You can overwrite any of the default arguments as necessary.</caption>
+<caption>Table&nbsp;D.1: R’s read functions. You can overwrite any of the default arguments as necessary.</caption>
 <colgroup>
 <col style="width: 14%">
 <col style="width: 36%">
@@ -560,7 +564,7 @@ Import Dataset
 <p>Once your data is in R, you can save it to any file format that R supports. If you’d like to save it as a plain-text file, you can use the +write+ family of functions. The three basic write functions appear in <a href="#tbl-write">Table&nbsp;<span>D.2</span></a>. Use <code>write.csv</code> to save your data as a <em>.csv</em> file and <code>write.table</code> to save your data as a tab delimited document or a document with more exotic separators.</p>
 <div id="tbl-write" class="anchored">
 <table class="table">
-<caption>Table D.2: R saves data sets to plain-text files with the write family of functions</caption>
+<caption>Table&nbsp;D.2: R saves data sets to plain-text files with the write family of functions</caption>
 <colgroup>
 <col style="width: 37%">
 <col style="width: 62%">
@@ -608,7 +612,7 @@ Import Dataset
 <p>Each of these functions will compress the output with a different type of compression format, shown in <a href="#tbl-compression">Table&nbsp;<span>D.3</span></a>.</p>
 <div id="tbl-compression" class="anchored">
 <table class="table">
-<caption>Table D.3: R comes with three helper functions for compressing files</caption>
+<caption>Table&nbsp;D.3: R comes with three helper functions for compressing files</caption>
 <thead>
 <tr class="header">
 <th>Function</th>
@@ -726,7 +730,7 @@ Import Dataset
 <p>Sometimes, however, you may acquire a file but not the program it came from. As a result, you won’t be able to open the file in its native program and export it as a text file. In this case, you can use one of the functions in <a href="#tbl-others">Table&nbsp;<span>D.4</span></a> to open the file. These functions mostly come in R’s <code>foreign</code> package. Each attempts to read in a different file format with as few hiccups as possible.</p>
 <div id="tbl-others" class="anchored">
 <table class="table">
-<caption>Table D.4: A number of functions will attempt to read the file types of other data-analysis programs</caption>
+<caption>Table&nbsp;D.4: A number of functions will attempt to read the file types of other data-analysis programs</caption>
 <thead>
 <tr class="header">
 <th>File format</th>
@@ -791,6 +795,24 @@ Import Dataset
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -840,7 +862,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
