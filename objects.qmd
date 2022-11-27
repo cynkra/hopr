@@ -875,7 +875,7 @@ head(deck)
 ```
 
 ::: callout-note
-`head` and `tail` are two functions that provide an easy way to peek at large data sets. `head` will return just the first six rows of the data set, and `tail` will return just the last six rows. To see a different number of rows, give `head` or `tails` a second argument, the number of rows you would like to view, for example, `head(deck, 10)`.
+`head` and `tail` are two functions that provide an easy way to peek at large data sets. `head` will return just the first six rows of the data set, and `tail` will return just the last six rows. To see a different number of rows, give `head` or `tail` a second argument, the number of rows you would like to view, for example, `head(deck, 10)`.
 :::
 
 R can open many types of files---not just CSVs. Visit [Loading and Saving Data in R](#sec-appendix-dataio) to learn how to open other common types of files in R.

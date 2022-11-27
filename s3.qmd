@@ -56,7 +56,7 @@ R's S3 system is built around three components: attributes (especially the `clas
 
 In [Attributes](#sec-attributes), you learned that many R objects come with attributes, pieces of extra information that are given a name and appended to the object. Attributes do not affect the values of the object, but stick to the object as a type of metadata that R can use to handle the object. For example, a data frame stores its row and column names as attributes. Data frames also store their class, `"data.frame"`, as an attribute.
 
-You can see an object's attributes with `attributes`. If you run `attribute` on the `deck` data frame that you created in [Project 2: Playing Cards](#sec-project-cards), you will see:
+You can see an object's attributes with `attributes`. If you run `attributes` on the `deck` data frame that you created in [Project 2: Playing Cards](#sec-project-cards), you will see:
 
 ``` r
 attributes(deck)
@@ -424,7 +424,7 @@ methods(print)
 ##   Nonvisible functions are asterisked
 ```
 
-This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary` and `head` also call `UseMethod`. More basic functions, like `c`, `+`, `-`, `<` and others also behave like generic functions, although they call `.primitive` instead of `UseMethod`.
+This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary` and `head` also call `UseMethod`. More basic functions, like `c`, `+`, `-`, `<` and others also behave like generic functions, although they call `.Primitive` instead of `UseMethod`.
 
 The S3 system allows R functions to behave in different ways for different classes. You can use S3 to format your slot output. First, give your output its own class. Then write a print method for that class. To do this efficiently, you will need to know a little about how `UseMethod` selects a method function to use.
 
