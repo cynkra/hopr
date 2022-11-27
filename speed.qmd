@@ -6,7 +6,7 @@ As a data scientist, you need speed. You can work with bigger data and do more a
 
 You can write a piece of code in many different ways, but the fastest R code will usually take advantage of three things: logical tests, subsetting, and element-wise execution. These are the things that R does best. Code that uses these things usually has a certain quality: it is *vectorized*; the code can take a vector of values as input and manipulate each value in the vector at the same time.
 
-To see what vectorized code looks like, compare these two examples of an absolute value function. Each takes a vector of numbers and transforms it into a vector of absolute values (e.g., positive numbers). The first example is not vectorized; `abs_loop` uses a `for` loop to manipulate each element of the vector one at a time:
+To see what vectorized code looks like, compare these two examples of an absolute value function. Each takes a vector of numbers and transforms it into a vector of absolute values (e.g., positive numbers). The first example is not vectorized; `abs_loop()` uses a `for` loop to manipulate each element of the vector one at a time:
 
 ``` r
 abs_loop <- function(vec){
@@ -19,7 +19,7 @@ abs_loop <- function(vec){
 }
 ```
 
-The second example, `abs_set`, is a vectorized version of `abs_loop`. It uses logical subsetting to manipulate every negative number in the vector at the same time:
+The second example, `abs_set()`, is a vectorized version of `abs_loop()`. It uses logical subsetting to manipulate every negative number in the vector at the same time:
 
 ``` r
 abs_sets <- function(vec){
@@ -29,21 +29,21 @@ abs_sets <- function(vec){
 }
 ```
 
-`abs_set` is much faster than `abs_loop` because it relies on operations that R does quickly: logical tests, subsetting, and element-wise execution.
+`abs_set()` is much faster than `abs_loop()` because it relies on operations that R does quickly: logical tests, subsetting, and element-wise execution.
 
-You can use the `system.time` function to see just how fast `abs_set` is. `system.time` takes an R expression, runs it, and then displays how much time elapsed while the expression ran.
+You can use the `system.time()` function to see just how fast `abs_set()` is. `system.time()` takes an R expression, runs it, and then displays how much time elapsed while the expression ran.
 
-To compare `abs_loop` and `abs_set`, first make a long vector of positive and negative numbers. `long` will contain 10 million values:
+To compare `abs_loop()` and `abs_set()`, first make a long vector of positive and negative numbers. `long` will contain 10 million values:
 
 ``` r
 long <- rep(c(-1, 1), 5000000)
 ```
 
 ::: callout-note
-`rep` repeats a value, or vector of values, many times. To use `rep`, give it a vector of values and then the number of times to repeat the vector. R will return the results as a new, longer vector.
+`rep()` repeats a value, or vector of values, many times. To use `rep()`, give it a vector of values and then the number of times to repeat the vector. R will return the results as a new, longer vector.
 :::
 
-You can then use `system.time` to measure how much time it takes each function to evaluate `long`:
+You can then use `system.time()` to measure how much time it takes each function to evaluate `long`:
 
 ``` r
 system.time(abs_loop(long))
@@ -56,22 +56,22 @@ system.time(abs_sets(long))
 ```
 
 ::: callout-important
-Don't confuse `system.time` with `Sys.time`, which returns the current time.
+Don't confuse `system.time()` with `Sys.time()`, which returns the current time.
 :::
 
-The first two columns of the output of `system.time` report how many seconds your computer spent executing the call on the user side and system sides of your process, a dichotomy that will vary from OS to OS.
+The first two columns of the output of `system.time()` report how many seconds your computer spent executing the call on the user side and system sides of your process, a dichotomy that will vary from OS to OS.
 
-The last column displays how many seconds elapsed while R ran the expression. The results show that `abs_set` calculated the absolute value 30 times faster than `abs_loop` when applied to a vector of 10 million numbers. You can expect similar speed-ups whenever you write vectorized code.
+The last column displays how many seconds elapsed while R ran the expression. The results show that `abs_set()` calculated the absolute value 30 times faster than `abs_loop()` when applied to a vector of 10 million numbers. You can expect similar speed-ups whenever you write vectorized code.
 
 ::: callout
 ## Exercise: How fast is abs?
 
-Many preexisting R functions are already vectorized and have been optimized to perform quickly. You can make your code faster by relying on these functions whenever possible. For example, R comes with a built-in absolute value function, `abs`.
+Many preexisting R functions are already vectorized and have been optimized to perform quickly. You can make your code faster by relying on these functions whenever possible. For example, R comes with a built-in absolute value function, `abs()`.
 
-Check to see how much faster `abs` computes the absolute value of `long` than `abs_loop` and `abs_set` do.
+Check to see how much faster `abs()` computes the absolute value of `long` than `abs_loop()` and `abs_set()` do.
 :::
 
-You can measure the speed of `abs` with `system.time`. It takes `abs` a lightning-fast 0.05 seconds to calculate the absolute value of 10 million numbers. This is 0.592 / 0.054 = 10.96 times faster than `abs_set` and nearly 300 times faster than `abs_loop`:
+You can measure the speed of `abs()` with `system.time()`. It takes `abs()` a lightning-fast 0.05 seconds to calculate the absolute value of 10 million numbers. This is 0.592 / 0.054 = 10.96 times faster than `abs_set()` and nearly 300 times faster than `abs_loop()`:
 
 ``` r
 system.time(abs(long))
@@ -86,9 +86,9 @@ Vectorized code is easy to write in R because most R functions are already vecto
 1.  Use vectorized functions to complete the sequential steps in your program.
 2.  Use logical subsetting to handle parallel cases. Try to manipulate every element in a case at once.
 
-`abs_loop` and `abs_set` illustrate these rules. The functions both handle two cases and perform one sequential step, @fig-abs. If a number is positive, the functions leave it alone. If a number is negative, the functions multiply it by negative one.
+`abs_loop()` and `abs_set()` illustrate these rules. The functions both handle two cases and perform one sequential step, @fig-abs. If a number is positive, the functions leave it alone. If a number is negative, the functions multiply it by negative one.
 
-![`abs_loop` uses a for loop to sift data into one of two cases: negative numbers and nonnegative numbers.](images/hopr_1001.png){#fig-abs}
+![`abs_loop()` uses a for loop to sift data into one of two cases: negative numbers and nonnegative numbers.](images/hopr_1001.png){#fig-abs}
 
 You can identify all of the elements of a vector that fall into a case with a logical test. R will execute the test in element-wise fashion and return a `TRUE` for every element that belongs in the case. For example, `vec < 0` identifies every value of `vec` that belongs to the negative case. You can use the same logical test to extract the set of negative values with logical subsetting:
 
@@ -152,9 +152,9 @@ system.time(change_symbols(many))
 ```
 :::
 
-`change_symbols` uses a `for` loop to sort values into seven different cases, as demonstrated in @fig-change.
+`change_symbols()` uses a `for` loop to sort values into seven different cases, as demonstrated in @fig-change.
 
-To vectorize `change_symbols`, create a logical test that can identify each case:
+To vectorize `change_symbols()`, create a logical test that can identify each case:
 
 ``` r
 vec[vec == "DD"]
@@ -179,7 +179,7 @@ vec[vec == "0"]
 ## "0"
 ```
 
-![`change_many` does something different for each of seven cases.](images/hopr_1003.png){#fig-change}
+![`change_many()` does something different for each of seven cases.](images/hopr_1003.png){#fig-change}
 
 Then write code that can change the symbols for each case:
 
@@ -193,7 +193,7 @@ vec[vec == "BBB"] <- "ten"
 vec[vec == "0"] <- "nine"
 ```
 
-When you combine this into a function, you have a vectorized version of `change_symbols` that runs about 14 times faster:
+When you combine this into a function, you have a vectorized version of `change_symbols()` that runs about 14 times faster:
 
 ``` r
 change_vec <- function (vec) {
@@ -229,7 +229,7 @@ system.time(change_vec(many))
 
 Here, a lookup table is 40 times faster than the original function.
 
-`abs_loop` and `change_many` illustrate a characteristic of vectorized code: programmers often write slower, nonvectorized code by relying on unnecessary `for` loops, like the one in `change_many`. I think this is the result of a general misunderstanding about R. `for` loops do not behave the same way in R as they do in other languages, which means you should write code differently in R than you would in other languages.
+`abs_loop()` and `change_many()` illustrate a characteristic of vectorized code: programmers often write slower, nonvectorized code by relying on unnecessary `for` loops, like the one in `change_many()`. I think this is the result of a general misunderstanding about R. `for` loops do not behave the same way in R as they do in other languages, which means you should write code differently in R than you would in other languages.
 
 When you write in languages like C and Fortran, you must compile your code before your computer can run it. This compilation step optimizes how the `for` loops in the code use your computer's memory, which makes the `for` loops very fast. As a result, many programmers use `for` loops frequently when they write in C and Fortran.
 
@@ -280,7 +280,7 @@ In the first case, the size of `output` never changes; R can define one `output`
 ::: callout-tip
 The authors of R use low-level languages like C and Fortran to write basic R functions, many of which use `for` loops. These functions are compiled and optimized before they become a part of R, which makes them quite fast.
 
-Whenever you see `.Primitive`, `.Internal`, or `.Call` written in a function's definition, you can be confident the function is calling code from another language. You'll get all of the speed advantages of that language by using the function.
+Whenever you see `.Primitive()`, `.Internal()`, or `.Call()` written in a function's definition, you can be confident the function is calling code from another language. You'll get all of the speed advantages of that language by using the function.
 :::
 
 ## Vectorized Code in Practice
@@ -299,7 +299,7 @@ mean(winnings)
 ## 0.9366984
 ```
 
-The estimated payout rate after 10 million runs is 0.937, which is very close to the true payout rate of 0.934. Note that I'm using the modified `score` function that treats diamonds as wilds.
+The estimated payout rate after 10 million runs is 0.937, which is very close to the true payout rate of 0.934. Note that I'm using the modified `score()` function that treats diamonds as wilds.
 
 If you run this simulation, you will notice that it takes a while to run. In fact, the simulation takes 342,308 seconds to run, which is about 5.7 minutes. This is not particularly impressive, and you can do better by using vectorized code:
 
@@ -311,9 +311,9 @@ system.time(for (i in 1:1000000) {
 ## 342.041   0.355 342.308 
 ```
 
-The current `score` function is not vectorized. It takes a single slot combination and uses an `if` tree to assign a prize to it. This combination of an `if` tree with a `for` loop suggests that you could write a piece of vectorized code that takes *many* slot combinations and then uses logical subsetting to operate on them all at once.
+The current `score()` function is not vectorized. It takes a single slot combination and uses an `if` tree to assign a prize to it. This combination of an `if` tree with a `for` loop suggests that you could write a piece of vectorized code that takes *many* slot combinations and then uses logical subsetting to operate on them all at once.
 
-For example, you could rewrite `get_symbols` to generate *n* slot combinations and return them as an *n* x 3 matrix, like the one that follows. Each row of the matrix will contain one slot combination to be scored:
+For example, you could rewrite `get_symbols()` to generate *n* slot combinations and return them as an *n* x 3 matrix, like the one that follows. Each row of the matrix will contain one slot combination to be scored:
 
 ``` r
 get_many_symbols <- function(n) {
@@ -332,7 +332,7 @@ get_many_symbols(5)
 ## [5,] "BBB" "0"  "0" 
 ```
 
-You could also rewrite `play` to take a parameter, `n`, and return `n` prizes, in a data frame:
+You could also rewrite `play()` to take a parameter, `n`, and return `n` prizes, in a data frame:
 
 ``` r
 play_many <- function(n) {
@@ -349,11 +349,11 @@ This new function would make it easy to simulate a million, or even 10 million p
 # mean(plays$prize)
 ```
 
-Now you just need to write `score_many`, a vectorized (matrix-ized?) version of `score` that takes an *n* x 3 matrix and returns *n* prizes. It will be difficult to write this function because `score` is already quite complicated. I would not expect you to feel confident doing this on your own until you have more practice and experience than we've been able to develop here.
+Now you just need to write `score_many()`, a vectorized (matrix-ized?) version of `score()` that takes an *n* x 3 matrix and returns *n* prizes. It will be difficult to write this function because `score()` is already quite complicated. I would not expect you to feel confident doing this on your own until you have more practice and experience than we've been able to develop here.
 
-Should you like to test your skills and write a version of `score_many`, I recommend that you use the function `rowSums` within your code. It calculates the sum of each row of numbers (or logicals) in a matrix.
+Should you like to test your skills and write a version of `score_many()`, I recommend that you use the function `rowSums()` within your code. It calculates the sum of each row of numbers (or logicals) in a matrix.
 
-If you would like to test yourself in a more modest way, I recommend that you study the following model `score_many` function until you understand how each part works and how the parts work together to create a vectorized function. To do this, it will be helpful to create a concrete example, like this:
+If you would like to test yourself in a more modest way, I recommend that you study the following model `score_many()` function until you understand how each part works and how the parts work together to create a vectorized function. To do this, it will be helpful to create a concrete example, like this:
 
 ``` r
 symbols <- matrix(
@@ -374,23 +374,23 @@ symbols
 ## [6,] "7"  "DD" "DD" 
 ```
 
-Then you can run each line of `score_many` against the example and examine the results as you go.
+Then you can run each line of `score_many()` against the example and examine the results as you go.
 
 ::: callout
 ## Exercise: Test Your Understanding
 
-Study the model `score_many` function until you are satisfied that you understand how it works and could write a similar function yourself.
+Study the model `score_many()` function until you are satisfied that you understand how it works and could write a similar function yourself.
 :::
 
 ::: callout
 ## Exercise: Advanced Challenge
 
-Instead of examining the model answer, write your own vectorized version of `score`. Assume that the data is stored in an *n* × 3 matrix where each row of the matrix contains one combination of slots to be scored.
+Instead of examining the model answer, write your own vectorized version of `score()`. Assume that the data is stored in an *n* × 3 matrix where each row of the matrix contains one combination of slots to be scored.
 
-You can use the version of `score` that treats diamonds as wild or the version of `score` that doesn't. However, the model answer will use the version treating diamonds as wild.
+You can use the version of `score()` that treats diamonds as wild or the version of `score()` that doesn't. However, the model answer will use the version treating diamonds as wild.
 :::
 
-`score_many` is a vectorized version of `score`. You can use it to run the simulation at the start of this section in a little over 20 seconds. This is 17 times faster than using a `for` loop:
+`score_many()` is a vectorized version of `score()`. You can use it to run the simulation at the start of this section in a little over 20 seconds. This is 17 times faster than using a `for` loop:
 
 ``` r
 # symbols should be a matrix with a column for each slot machine window
@@ -467,7 +467,7 @@ system.time(play_many(10000000))
 
 In many languages, `for` loops run very fast. As a result, programmers learn to use `for` loops whenever possible when they code. Often these programmers continue to rely on `for` loops when they begin to program in R, usually without taking the simple steps needed to optimize R's `for` loops. These programmers may become disillusioned with R when their code does not work as fast as they would like. If you think that this may be happening to you, examine how often you are using `for` loops and what you are using them to do. If you find yourself using `for` loops for every task, there is a good chance that you are "speaking R with a C accent." The cure is to learn to write and use vectorized code.
 
-This doesn't mean that `for` loops have no place in R. `for` loops are a very useful feature; they can do many things that vectorized code cannot do. You also should not become a slave to vectorized code. Sometimes it would take more time to rewrite code in vectorized format than to let a `for` loop run. For example, would it be faster to let the slot simulation run for 5.7 minutes or to rewrite `score`?
+This doesn't mean that `for` loops have no place in R. `for` loops are a very useful feature; they can do many things that vectorized code cannot do. You also should not become a slave to vectorized code. Sometimes it would take more time to rewrite code in vectorized format than to let a `for` loop run. For example, would it be faster to let the slot simulation run for 5.7 minutes or to rewrite `score()`?
 
 ## Summary
 
@@ -477,7 +477,7 @@ If you use these operations, but your code does not appear vectorized, analyze t
 
 ## Project 3 Wrap-up
 
-You have now written your first program in R, and it is a program that you should be proud of. `play` is not a simple `hello world` exercise, but a real program that does a real task in a complicated way.
+You have now written your first program in R, and it is a program that you should be proud of. `play()` is not a simple `hello world` exercise, but a real program that does a real task in a complicated way.
 
 Writing new programs in R will always be challenging because programming depends so much on your own creativity, problem-solving ability, and experience writing similar types of programs. However, you can use the suggestions in this chapter to make even the most complicated program manageable: divide tasks into simple steps and cases, work with concrete examples, and describe possible solutions in English.
 

@@ -267,7 +267,7 @@ deck2$face == "ace"
 ##  FALSE FALSE  TRUE
 ```
 
-You can use `sum` to quickly count the number of `TRUE`s in the previous vector. Remember that R will coerce logicals to numerics when you do math with them. R will turn `TRUE`s into ones and `FALSE`s into zeroes. As a result, sum will count the number of `TRUE`s:
+You can use `sum()` to quickly count the number of `TRUE`s in the previous vector. Remember that R will coerce logicals to numerics when you do math with them. R will turn `TRUE`s into ones and `FALSE`s into zeroes. As a result, sum will count the number of `TRUE`s:
 
 ``` r
 sum(deck2$face == "ace")
@@ -414,10 +414,10 @@ Boolean operators are things like *and* (`&`) and *or* (`|`). They collapse the 
 |----------|---------------------------------|-------------------------------------------------------------------|
 | `&`      | `cond1 & cond2`                 | Are both `cond1` and `cond2` true?                                |
 | `|`      | `cond1 | cond2`                 | Is one or more of `cond1` and `cond2` true?                       |
-| `xor`    | `xor(cond1, cond2)`             | Is exactly one of `cond1` and `cond2` true?                       |
+| `xor()`    | `xor(cond1, cond2)`             | Is exactly one of `cond1` and `cond2` true?                       |
 | `!`      | `!cond1`                        | Is `cond1` false? (e.g., `!` flips the results of a logical test) |
-| `any`    | `any(cond1, cond2, cond3, ...)` | Are any of the conditions true?                                   |
-| `all`    | `all(cond1, cond2, cond3, ...)` | Are all of the conditions true?                                   |
+| `any()`    | `any(cond1, cond2, cond3, ...)` | Are any of the conditions true?                                   |
+| `all()`    | `all(cond1, cond2, cond3, ...)` | Are all of the conditions true?                                   |
 
 : Boolean operators {#tbl-boole}
 
@@ -607,7 +607,7 @@ Again, your answer would be something like "I do not know if this is equal to on
 
 ### na.rm
 
-Missing values can help you work around holes in your data sets, but they can also create some frustrating problems. Suppose, for example, that you've collected 1,000 observations and wish to take their average with R's `mean` function. If even one of the values is `NA`, your result will be `NA`:
+Missing values can help you work around holes in your data sets, but they can also create some frustrating problems. Suppose, for example, that you've collected 1,000 observations and wish to take their average with R's `mean()` function. If even one of the values is `NA`, your result will be `NA`:
 
 ``` r
 c(NA, 1:50)
@@ -642,7 +642,7 @@ c(1, 2, 3, NA) == NA
 ## NA NA NA NA
 ```
 
-But don't worry too hard; R supplies a special function that can test whether a value is an `NA`. The function is sensibly named `is.na`:
+But don't worry too hard; R supplies a special function that can test whether a value is an `NA`. The function is sensibly named `is.na()`:
 
 ``` r
 is.na(NA)
@@ -685,4 +685,4 @@ You can modify values in place inside an R object when you combine R's notation 
 
 When you work with large data sets, modifying and retrieving values creates a logistical problem of its own. How can you search through the data to find the values that you want to modify or retrieve? As an R user, you can do this with logical subsetting. Create a logical test with logical and Boolean operators and then use the test as an index in R's bracket notation. R will return the values that you are looking for, even if you do not know where they are.
 
-Retrieving individual values will not be your only concern as an R programmer. You'll also need to retrieve entire data sets themselves; for example, you may call one in a function. [Environments](#sec-environments) will teach you how R looks up and saves data sets and other R objects in its environment system. You'll then use this knowledge to fix the `deal` and `shuffle` functions.
+Retrieving individual values will not be your only concern as an R programmer. You'll also need to retrieve entire data sets themselves; for example, you may call one in a function. [Environments](#sec-environments) will teach you how R looks up and saves data sets and other R objects in its environment system. You'll then use this knowledge to fix the `deal()` and `shuffle()` functions.

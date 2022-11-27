@@ -16,7 +16,7 @@ play()
 ## 0
 ```
 
-Moreover, the slot machine uses a hack to display symbols (we call `print` from within `play`). As a result, the symbols do not follow your prize output if you save it:
+Moreover, the slot machine uses a hack to display symbols (we call `print()` from within `play()`). As a result, the symbols do not follow your prize output if you save it:
 
 ``` r
 one_play <- play()
@@ -32,7 +32,7 @@ You can fix both of these problems with R's S3 system.
 
 S3 refers to a class system built into R. The system governs how R handles objects of different classes. Certain R functions will look up an object's S3 class, and then behave differently in response.
 
-The `print` function is like this. When you print a numeric vector, `print` will display a number:
+The `print()` function is like this. When you print a numeric vector, `print()` will display a number:
 
 ``` r
 num <- 1000000000
@@ -40,7 +40,7 @@ print(num)
 ## 1000000000
 ```
 
-But if you give that number the S3 class `POSIXct` followed by `POSIXt`, `print` will display a time:
+But if you give that number the S3 class `POSIXct` followed by `POSIXt`, `print()` will display a time:
 
 ``` r
 class(num) <- c("POSIXct", "POSIXt")
@@ -56,7 +56,7 @@ R's S3 system is built around three components: attributes (especially the `clas
 
 In [Attributes](#sec-attributes), you learned that many R objects come with attributes, pieces of extra information that are given a name and appended to the object. Attributes do not affect the values of the object, but stick to the object as a type of metadata that R can use to handle the object. For example, a data frame stores its row and column names as attributes. Data frames also store their class, `"data.frame"`, as an attribute.
 
-You can see an object's attributes with `attributes`. If you run `attributes` on the `deck` data frame that you created in [Project 2: Playing Cards](#sec-project-cards), you will see:
+You can see an object's attributes with `attributes()`. If you run `attributes()` on the `deck` data frame that you created in [Project 2: Playing Cards](#sec-project-cards), you will see:
 
 ``` r
 attributes(deck)
@@ -72,7 +72,7 @@ attributes(deck)
 ## [37] 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
 ```
 
-R comes with many helper functions that let you set and access the most common attributes used in R. You've already met the `names`, `dim`, and `class` functions, which each work with an eponymously named attribute. However, R also has `row.names`, `levels`, and many other attribute-based helper functions. You can use any of these functions to retrieve an attribute's value:
+R comes with many helper functions that let you set and access the most common attributes used in R. You've already met the `names()`, `dim()`, and `class` functions, which each work with an eponymously named attribute. However, R also has `row.names()`, `levels()`, and many other attribute-based helper functions. You can use any of these functions to retrieve an attribute's value:
 
 ``` r
 row.names(deck)
@@ -112,7 +112,7 @@ attributes(deck)
 
 R is very laissez faire when it comes to attributes. It will let you add any attributes that you like to an object (and then it will usually ignore them). The only time R will complain is when a function needs to find an attribute and it is not there.
 
-You can add any general attribute to an object with `attr`; you can also use `attr` to look up the value of any attribute of an object. Let's see how this works with `one_play`, the result of playing our slot machine one time:
+You can add any general attribute to an object with `attr()`; you can also use `attr()` to look up the value of any attribute of an object. Let's see how this works with `one_play`, the result of playing our slot machine one time:
 
 ``` r
 one_play <- play()
@@ -123,7 +123,7 @@ attributes(one_play)
 ## NULL
 ```
 
-`attr` takes two arguments: an R object and the name of an attribute (as a character string). To give the R object an attribute of the specified name, save a value to the output of `attr`. Let's give `one_play` an attribute named `symbols` that contains a vector of character strings:
+`attr()` takes two arguments: an R object and the name of an attribute (as a character string). To give the R object an attribute of the specified name, save a value to the output of `attr()`. Let's give `one_play` an attribute named `symbols` that contains a vector of character strings:
 
 ``` r
 attr(one_play, "symbols") <- c("B", "0", "B")
@@ -133,7 +133,7 @@ attributes(one_play)
 ## [1] "B" "0" "B"
 ```
 
-To look up the value of any attribute, give `attr` an R object and the name of the attribute you would like to look up:
+To look up the value of any attribute, give `attr()` an R object and the name of the attribute you would like to look up:
 
 ``` r
 attr(one_play, "symbols")
@@ -149,7 +149,7 @@ one_play
 ## [1] "B" "0" "B"
 ```
 
-R will generally ignore an object's attributes unless you give them a name that an R function looks for, like `names` or `class`. For example, R will ignore the `symbols` attribute of `one_play` as you manipulate `one_play`:
+R will generally ignore an object's attributes unless you give them a name that an R function looks for, like `names()` or `class`. For example, R will ignore the `symbols` attribute of `one_play` as you manipulate `one_play`:
 
 ``` r
 one_play + 1
@@ -161,7 +161,7 @@ one_play + 1
 ::: callout
 ## Exercise: Add an Attribute
 
-Modify `play` to return a prize that contains the symbols associated with it as an attribute named `symbols`. Remove the redundant call to `print(symbols)`:
+Modify `play()` to return a prize that contains the symbols associated with it as an attribute named `symbols`. Remove the redundant call to `print(symbols)`:
 
 ``` r
 play <- function() {
@@ -172,7 +172,7 @@ play <- function() {
 ```
 :::
 
-You can create a new version of `play` by capturing the output of `score(symbols)` and assigning an attribute to it. `play` can then return the enhanced version of the output:
+You can create a new version of `play()` by capturing the output of `score(symbols)` and assigning an attribute to it. `play()` can then return the enhanced version of the output:
 
 ``` r
 play <- function() {
@@ -183,7 +183,7 @@ play <- function() {
 }
 ```
 
-Now `play` returns both the prize and the symbols associated with the prize. The results may not look pretty, but the symbols stick with the prize when we copy it to a new object. We can work on tidying up the display in a minute:
+Now `play()` returns both the prize and the symbols associated with the prize. The results may not look pretty, but the symbols stick with the prize when we copy it to a new object. We can work on tidying up the display in a minute:
 
 ``` r
 play()
@@ -199,7 +199,7 @@ two_play
 ## [1] "0" "B" "0"
 ```
 
-You can also generate a prize and set its attributes in one step with the `structure` function. `structure` creates an object with a set of attributes. The first argument of `structure` should be an R object or set of values, and the remaining arguments should be named attributes for `structure` to add to the object. You can give these arguments any argument names you like. `structure` will add the attributes to the object under the names that you provide as argument names:
+You can also generate a prize and set its attributes in one step with the `structure()` function. `structure()` creates an object with a set of attributes. The first argument of `structure()` should be an R object or set of values, and the remaining arguments should be named attributes for `structure()` to add to the object. You can give these arguments any argument names you like. `structure()` will add the attributes to the object under the names that you provide as argument names:
 
 ``` r
 play <- function() {
@@ -214,7 +214,7 @@ three_play
 ##  "0"  "BB" "B" 
 ```
 
-Now that your `play` output contains a `symbols` attribute, what can you do with it? You can write your own functions that lookup and use the attribute. For example, the following function will look up `one_play`'s `symbols` attribute and use it to display `one_play` in a pretty manner. We will use this function to display our slot results, so let's take a moment to study what it does:
+Now that your `play()` output contains a `symbols` attribute, what can you do with it? You can write your own functions that lookup and use the attribute. For example, the following function will look up `one_play`'s `symbols` attribute and use it to display `one_play` in a pretty manner. We will use this function to display our slot results, so let's take a moment to study what it does:
 
 ``` r
 slot_display <- function(prize){
@@ -247,7 +247,7 @@ symbols
 ## "B" "0" "B"
 ```
 
-Next, `slot_display` uses `paste` to collapse the three strings in `symbols` into a single-character string. `paste` collapses a vector of character strings into a single string when you give it the `collapse` argument. `paste` will use the value of `collapse` to separate the formerly distinct strings. Hence, `symbols` becomes `B 0 B` the three strings separated by a space:
+Next, `slot_display()` uses `paste()` to collapse the three strings in `symbols` into a single-character string. `paste()` collapses a vector of character strings into a single string when you give it the `collapse` argument. `paste()` will use the value of `collapse` to separate the formerly distinct strings. Hence, `symbols` becomes `B 0 B` the three strings separated by a space:
 
 ``` r
 symbols <- paste(symbols, collapse = " ")
@@ -256,7 +256,7 @@ symbols
 ## "B 0 B"
 ```
 
-Our function then uses `paste` in a new way to combine `symbols` with the value of `prize`. `paste` combines separate objects into a character string when you give it a `sep` argument. For example, here `paste` will combine the string in `symbols`, `B 0 B`, with the number in `prize`, 0. `paste` will use the value of `sep` argument to separate the inputs in the new string. Here, that value is `\n$`, so our result will look like `"B 0 B\n$0"`:
+Our function then uses `paste()` in a new way to combine `symbols` with the value of `prize`. `paste()` combines separate objects into a character string when you give it a `sep` argument. For example, here `paste()` will combine the string in `symbols`, `B 0 B`, with the number in `prize`, 0. `paste()` will use the value of `sep` argument to separate the inputs in the new string. Here, that value is `\n$`, so our result will look like `"B 0 B\n$0"`:
 
 ``` r
 prize <- one_play
@@ -266,7 +266,7 @@ string
 ## "B 0 B\n$0"
 ```
 
-The last line of `slot_display` calls `cat` on the new string. `cat` is like `print`; it displays its input at the command line. However, `cat` does not surround its output with quotation marks. `cat` also replaces every `\n` with a new line or line break. The result is what we see. Notice that it looks just how I suggested that our `play` output should look in [Programs](#sec-programs):
+The last line of `slot_display()` calls `cat()` on the new string. `cat()` is like `print()`; it displays its input at the command line. However, `cat()` does not surround its output with quotation marks. `cat()` also replaces every `\n` with a new line or line break. The result is what we see. Notice that it looks just how I suggested that our `play()` output should look in [Programs](#sec-programs):
 
 ``` r
 cat(string)
@@ -274,7 +274,7 @@ cat(string)
 ## $0
 ```
 
-You can use `slot_display` to manually clean up the output of `play`:
+You can use `slot_display()` to manually clean up the output of `play()`:
 
 ``` r
 slot_display(play())
@@ -286,11 +286,11 @@ slot_display(play())
 ## $0
 ```
 
-This method of cleaning the output requires you to manually intervene in your R session (to call `slot_display`). There is a function that you can use to automatically clean up the output of `play` *each* time it is displayed. This function is `print`, and it is a *generic function*.
+This method of cleaning the output requires you to manually intervene in your R session (to call `slot_display()`). There is a function that you can use to automatically clean up the output of `play()` *each* time it is displayed. This function is `print()`, and it is a *generic function*.
 
 ## Generic Functions
 
-R uses `print` more often than you may think; R calls `print` each time it displays a result in your console window. This call happens in the background, so you do not notice it; but the call explains how output makes it to the console window (recall that `print` always prints its argument in the console window). This `print` call also explains why the output of `print` always matches what you see when you display an object at the command line:
+R uses `print()` more often than you may think; R calls `print()` each time it displays a result in your console window. This call happens in the background, so you do not notice it; but the call explains how output makes it to the console window (recall that `print()` always prints its argument in the console window). This `print()` call also explains why the output of `print()` always matches what you see when you display an object at the command line:
 
 ``` r
 print(pi)
@@ -330,9 +330,9 @@ play()
 ##  "B"  "BB" "B" 
 ```
 
-You can change how R displays your slot output by rewriting `print` to look like `slot_display`. Then R would print the output in our tidy format. However, this method would have negative side effects. You do not want R to call `slot_display` when it prints a data frame, a numerical vector, or any other object.
+You can change how R displays your slot output by rewriting `print()` to look like `slot_display()`. Then R would print the output in our tidy format. However, this method would have negative side effects. You do not want R to call `slot_display()` when it prints a data frame, a numerical vector, or any other object.
 
-Fortunately, `print` is not a normal function; it is a *generic* function. This means that `print` is written in a way that lets it do different things in different cases. You've already seen this behavior in action (although you may not have realized it). `print` did one thing when we looked at the unclassed version of `num`:
+Fortunately, `print()` is not a normal function; it is a *generic* function. This means that `print()` is written in a way that lets it do different things in different cases. You've already seen this behavior in action (although you may not have realized it). `print()` did one thing when we looked at the unclassed version of `num`:
 
 ``` r
 num <- 1000000000
@@ -348,11 +348,11 @@ print(num)
 ## "2001-09-08 19:46:40 CST"
 ```
 
-Take a look at the code inside `print` to see how it does this. You may imagine that print looks up the class attribute of its input and then uses an +if+ tree to pick which output to display. If this occurred to you, great job! `print` does something very similar, but much more simple.
+Take a look at the code inside `print()` to see how it does this. You may imagine that print looks up the class attribute of its input and then uses an +if+ tree to pick which output to display. If this occurred to you, great job! `print()` does something very similar, but much more simple.
 
 ## Methods
 
-When you call `print`, `print` calls a special function, `UseMethod`:
+When you call `print()`, `print()` calls a special function, `UseMethod()`:
 
 ``` r
 print
@@ -362,7 +362,7 @@ print
 ## <environment: namespace:base>
 ```
 
-`UseMethod` examines the class of the input that you provide for the first argument of `print`, and then passes all of your arguments to a new function designed to handle that class of input. For example, when you give `print` a POSIXct object, `UseMethod` will pass all of `print`'s arguments to `print.POSIXct`. R will then run `print.POSIXct` and return the results:
+`UseMethod()` examines the class of the input that you provide for the first argument of `print()`, and then passes all of your arguments to a new function designed to handle that class of input. For example, when you give `print()` a POSIXct object, `UseMethod()` will pass all of `print()`'s arguments to `print.POSIXct()`. R will then run `print.POSIXct()` and return the results:
 
 ``` r
 print.POSIXct
@@ -381,7 +381,7 @@ print.POSIXct
 ## <environment: namespace:base>
 ```
 
-If you give `print` a factor object, `UseMethod` will pass all of `print`'s arguments to `print.factor`. R will then run `print.factor` and return the results:
+If you give `print()` a factor object, `UseMethod()` will pass all of `print()`'s arguments to `print.factor()`. R will then run `print.factor()` and return the results:
 
 ``` r
 print.factor
@@ -405,11 +405,11 @@ print.factor
 ## <environment: namespace:base>
 ```
 
-`print.POSIXct` and `print.factor` are called *methods* of `print`. By themselves, `print.POSIXct` and `print.factor` work like regular R functions. However, each was written specifically so `UseMethod` could call it to handle a specific class of `print` input.
+`print.POSIXct()` and `print.factor()` are called *methods* of `print()`. By themselves, `print.POSIXct()` and `print.factor()` work like regular R functions. However, each was written specifically so `UseMethod()` could call it to handle a specific class of `print()` input.
 
-Notice that `print.POSIXct` and `print.factor` do two different things (also notice that I abridged the middle of `print.factor`---it is a long function). This is how `print` manages to do different things in different cases. `print` calls `UseMethod`, which calls a specialized method based on the class of `print`'s first argument.
+Notice that `print.POSIXct()` and `print.factor()` do two different things (also notice that I abridged the middle of `print.factor()`---it is a long function). This is how `print()` manages to do different things in different cases. `print()` calls `UseMethod()`, which calls a specialized method based on the class of `print()`'s first argument.
 
-You can see which methods exist for a generic function by calling `methods` on the function. For example, `print` has almost 200 methods (which gives you an idea of how many classes exist in R):
+You can see which methods exist for a generic function by calling `methods()` on the function. For example, `print()` has almost 200 methods (which gives you an idea of how many classes exist in R):
 
 ``` r
 methods(print)
@@ -424,17 +424,17 @@ methods(print)
 ##   Nonvisible functions are asterisked
 ```
 
-This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary` and `head` also call `UseMethod`. More basic functions, like `c`, `+`, `-`, `<` and others also behave like generic functions, although they call `.Primitive` instead of `UseMethod`.
+This system of generic functions, methods, and class-based dispatch is known as S3 because it originated in the third version of S, the programming language that would evolve into S-PLUS and R. Many common R functions are S3 generics that work with a set of class methods. For example, `summary()` and `head()` also call `UseMethod()`. More basic functions, like `c`, `+`, `-`, `<` and others also behave like generic functions, although they call `.Primitive()` instead of `UseMethod()`.
 
-The S3 system allows R functions to behave in different ways for different classes. You can use S3 to format your slot output. First, give your output its own class. Then write a print method for that class. To do this efficiently, you will need to know a little about how `UseMethod` selects a method function to use.
+The S3 system allows R functions to behave in different ways for different classes. You can use S3 to format your slot output. First, give your output its own class. Then write a print method for that class. To do this efficiently, you will need to know a little about how `UseMethod()` selects a method function to use.
 
 ### Method Dispatch
 
-`UseMethod` uses a very simple system to match methods to functions.
+`UseMethod()` uses a very simple system to match methods to functions.
 
-Every S3 method has a two-part name. The first part of the name will refer to the function that the method works with. The second part will refer to the class. These two parts will be separated by a period. So for example, the print method that works with functions will be called `print.function`. The summary method that works with matrices will be called `summary.matrix`. And so on.
+Every S3 method has a two-part name. The first part of the name will refer to the function that the method works with. The second part will refer to the class. These two parts will be separated by a period. So for example, the print method that works with functions will be called `print.function()`. The summary method that works with matrices will be called `summary.matrix()`. And so on.
 
-When `UseMethod` needs to call a method, it searches for an R function with the correct S3-style name. The function does not have to be special in any way; it just needs to have the correct name.
+When `UseMethod()` needs to call a method, it searches for an R function with the correct S3-style name. The function does not have to be special in any way; it just needs to have the correct name.
 
 You can participate in this system by writing your own function and giving it a valid S3-style name. For example, let's give `one_play` a class of its own. It doesn't matter what you call the class; R will store any character string in the class attribute:
 
@@ -442,7 +442,7 @@ You can participate in this system by writing your own function and giving it a 
 class(one_play) <- "slots"
 ```
 
-Now let's write an S3 print method for the +slots+ class. The method doesn't need to do anything special---it doesn't even need to print `one_play`. But it *does* need to be named `print.slots`; otherwise `UseMethod` will not find it. The method should also take the same arguments as `print`; otherwise, R will give an error when it tries to pass the arguments to `print.slots`:
+Now let's write an S3 print method for the +slots+ class. The method doesn't need to do anything special---it doesn't even need to print `one_play`. But it *does* need to be named `print.slots()`; otherwise `UseMethod()` will not find it. The method should also take the same arguments as `print()`; otherwise, R will give an error when it tries to pass the arguments to `print.slots()`:
 
 ``` r
 args(print)
@@ -466,7 +466,7 @@ one_play
 rm(print.slots)
 ```
 
-Some R objects have multiple classes. For example, the output of `Sys.time` has two classes. Which class will `UseMethod` use to find a print method?
+Some R objects have multiple classes. For example, the output of `Sys.time()` has two classes. Which class will `UseMethod()` use to find a print method?
 
 ``` r
 now <- Sys.time()
@@ -475,21 +475,21 @@ attributes(now)
 ## [1] "POSIXct" "POSIXt" 
 ```
 
-`UseMethod` will first look for a method that matches the first class listed in the object's class vector. If `UseMethod` cannot find one, it will then look for the method that matches the second class (and so on if there are more classes in an object's class vector).
+`UseMethod()` will first look for a method that matches the first class listed in the object's class vector. If `UseMethod()` cannot find one, it will then look for the method that matches the second class (and so on if there are more classes in an object's class vector).
 
-If you give `print` an object whose class or classes do not have a print method, `UseMethod` will call `print.default`, a special method written to handle general cases.
+If you give `print()` an object whose class or classes do not have a print method, `UseMethod()` will call `print.default()`, a special method written to handle general cases.
 
 Let's use this system to write a better print method for the slot machine output.
 
 ::: callout
 ## Exercise: Make a Print Method
 
-Write a new print method for the slots class. The method should call `slot_display` to return well-formatted slot-machine output.
+Write a new print method for the slots class. The method should call `slot_display()` to return well-formatted slot-machine output.
 
 What name must you use for this method?
 :::
 
-It is surprisingly easy to write a good `print.slots` method because we've already done all of the hard work when we wrote `slot_display`. For example, the following method will work. Just make sure the method is named `print.slots` so `UseMethod` can find it, and make sure that it takes the same arguments as `print` so `UseMethod` can pass those arguments to `print.slots` without any trouble:
+It is surprisingly easy to write a good `print.slots()` method because we've already done all of the hard work when we wrote `slot_display()`. For example, the following method will work. Just make sure the method is named `print.slots()` so `UseMethod()` can find it, and make sure that it takes the same arguments as `print()` so `UseMethod()` can pass those arguments to `print.slots()` without any trouble:
 
 ``` r
 print.slots <- function(x, ...) {
@@ -497,7 +497,7 @@ print.slots <- function(x, ...) {
 }
 ```
 
-Now R will automatically use `slot_display` to display objects of class +slots+ (and only objects of class "slots"):
+Now R will automatically use `slot_display()` to display objects of class +slots+ (and only objects of class "slots"):
 
 ``` r
 one_play
@@ -510,7 +510,7 @@ Let's ensure that every piece of slot machine output has the `slots` class.
 ::: callout
 ## Exercise: Add a Class
 
-Modify the `play` function so it assigns `slots` to the `class` attribute of its output:
+Modify the `play()` function so it assigns `slots` to the `class` attribute of its output:
 
 ``` r
 play <- function() {
@@ -520,7 +520,7 @@ play <- function() {
 ```
 :::
 
-You can set the `class` attribute of the output at the same time that you set the +symbols+ attribute. Just add `class = "slots"` to the `structure` call:
+You can set the `class` attribute of the output at the same time that you set the +symbols+ attribute. Just add `class = "slots"` to the `structure()` call:
 
 ``` r
 play <- function() {
@@ -558,7 +558,7 @@ You can use the S3 system to make a robust new class of objects in R. Then R wil
 
 Many R packages are based on classes that have been built in a similar manner. While this work is simple, it may not be easy. For example, consider how many methods exist for predefined classes.
 
-You can call `methods` on a class with the `class` argument, which takes a character string. `methods` will return every method written for the class. Notice that `methods` will not be able to show you methods that come in an unloaded R package:
+You can call `methods()` on a class with the `class` argument, which takes a character string. `methods()` will return every method written for the class. Notice that `methods()` will not be able to show you methods that come in an unloaded R package:
 
 ``` r
 methods(class = "factor")
@@ -599,7 +599,7 @@ c(play1, play2)
 ## [1] 5 0
 ```
 
-Here, R stops using `print.slots` to display the vector because the vector `c(play1, play2)` no longer has a "slots" +class+ attribute.
+Here, R stops using `print.slots()` to display the vector because the vector `c(play1, play2)` no longer has a "slots" +class+ attribute.
 
 Next, R will drop the attributes of an object (like `class`) when you subset the object:
 
@@ -608,13 +608,13 @@ play1[1]
 ## [1] 5
 ```
 
-You can avoid this behavior by writing a `c.slots` method and a `[.slots` method, but then difficulties will quickly accrue. How would you combine the `symbols` attributes of multiple plays into a vector of symbols attributes? How would you change `print.slots` to handle vectors of outputs? These challenges are open for you to explore. However, you will usually not have to attempt this type of large-scale programming as a data scientist.
+You can avoid this behavior by writing a `c.slots()` method and a `[.slots` method, but then difficulties will quickly accrue. How would you combine the `symbols` attributes of multiple plays into a vector of symbols attributes? How would you change `print.slots()` to handle vectors of outputs? These challenges are open for you to explore. However, you will usually not have to attempt this type of large-scale programming as a data scientist.
 
 In our case, it is very handy to let `slots` objects revert to single prize values when we combine groups of them together into a vector.
 
 ## S3 and Debugging
 
-S3 can be annoying if you are trying to understand R functions. It is difficult to tell what a function does if its code body contains a call to `UseMethod`. Now that you know that `UseMethod` calls a class-specific method, you can search for and examine the method directly. It will be a function whose name follows the `<function.class>` syntax, or possibly `<function.default>`. You can also use the `methods` function to see what methods are associated with a function or a class.
+S3 can be annoying if you are trying to understand R functions. It is difficult to tell what a function does if its code body contains a call to `UseMethod()`. Now that you know that `UseMethod()` calls a class-specific method, you can search for and examine the method directly. It will be a function whose name follows the `<function.class>` syntax, or possibly `<function.default>`. You can also use the `methods()` function to see what methods are associated with a function or a class.
 
 ## S4 and R5
 

@@ -197,7 +197,7 @@ my_number
 ## 999
 ```
 
-You can see which object names you have already used with the function `ls`:
+You can see which object names you have already used with the function `ls()`:
 
 ``` r
 ls()
@@ -267,7 +267,7 @@ die %o% die
 ## [6,]    6   12   18   24   30   36
 ```
 
-You can also do things like transpose a matrix with `t` and take its determinant with `det`.
+You can also do things like transpose a matrix with `t()` and take its determinant with `det()`.
 
 Don't worry if you're not familiar with these operations. They are easy to look up, and you won't need them for this book.
 
@@ -275,7 +275,7 @@ Now that you can do math with your `die` object, let's look at how you could "ro
 
 ## Functions
 
-R comes with many functions that you can use to do sophisticated tasks like random sampling. For example, you can round a number with the `round` function, or calculate its factorial with the `factorial` function. Using a function is pretty simple. Just write the name of the function and then the data you want the function to operate on in parentheses:
+R comes with many functions that you can use to do sophisticated tasks like random sampling. For example, you can round a number with the `round()` function, or calculate its factorial with the `factorial()` function. Using a function is pretty simple. Just write the name of the function and then the data you want the function to operate on in parentheses:
 
 ``` r
 round(3.1415)
@@ -300,7 +300,7 @@ round(mean(die))
 
 ![When you link functions together, R will resolve them from the innermost operation to the outermost. Here R first looks up die, then calculates the mean of one through six, then rounds the mean.](images/hopr_0105.png){#fig-pemdas}
 
-Lucky for us, there is an R function that can help "roll" the die. You can simulate a roll of the die with R's `sample` function. `sample` takes *two* arguments: a vector named `x` and a number named `size`. `sample` will return `size` elements from the vector:
+Lucky for us, there is an R function that can help "roll" the die. You can simulate a roll of the die with R's `sample()` function. `sample()` takes *two* arguments: a vector named `x` and a number named `size`. `sample()` will return `size` elements from the vector:
 
 ``` r
 sample(x = 1:4, size = 2)
@@ -322,7 +322,7 @@ sample(x = die, size = 1)
 
 Many R functions take multiple arguments that help them do their job. You can give a function as many arguments as you like as long as you separate each argument with a comma.
 
-You may have noticed that I set `die` and `1` equal to the names of the arguments in `sample`, `x` and `size`. Every argument in every R function has a name. You can specify which data should be assigned to which argument by setting a name equal to data, as in the preceding code. This becomes important as you begin to pass multiple arguments to the same function; names help you avoid passing the wrong data to the wrong argument. However, using names is optional. You will notice that R users do not often use the name of the first argument in a function. So you might see the previous code written as:
+You may have noticed that I set `die` and `1` equal to the names of the arguments in `sample()`, `x` and `size`. Every argument in every R function has a name. You can specify which data should be assigned to which argument by setting a name equal to data, as in the preceding code. This becomes important as you begin to pass multiple arguments to the same function; names help you avoid passing the wrong data to the wrong argument. However, using names is optional. You will notice that R users do not often use the name of the first argument in a function. So you might see the previous code written as:
 
 ``` r
 sample(die, size = 1)
@@ -338,7 +338,7 @@ round(3.1415, corners = 2)
 ## Error in round(3.1415, corners = 2) : unused argument(s) (corners = 2)
 ```
 
-If you're not sure which names to use with a function, you can look up the function's arguments with `args`. To do this, place the name of the function in the parentheses behind `args`. For example, you can see that the `round` function takes two arguments, one named `x` and one named `digits`:
+If you're not sure which names to use with a function, you can look up the function's arguments with `args()`. To do this, place the name of the function in the parentheses behind `args()`. For example, you can see that the `round()` function takes two arguments, one named `x` and one named `digits`:
 
 ``` r
 args(round)
@@ -346,7 +346,7 @@ args(round)
 ## NULL
 ```
 
-Did you notice that `args` shows that the `digits` argument of `round` is already set to 0? Frequently, an R function will take optional arguments like `digits`. These arguments are considered optional because they come with a default value. You can pass a new value to an optional argument if you want, and R will use the default value if you do not. For example, `round` will round your number to 0 digits past the decimal point by default. To override the default, supply your own value for `digits`:
+Did you notice that `args()` shows that the `digits` argument of `round()` is already set to 0? Frequently, an R function will take optional arguments like `digits`. These arguments are considered optional because they come with a default value. You can pass a new value to an optional argument if you want, and R will use the default value if you do not. For example, `round()` will round your number to 0 digits past the decimal point by default. To override the default, supply your own value for `digits`:
 
 ``` r
 round(3.1415)
@@ -358,7 +358,7 @@ round(3.1415, digits = 2)
 
 You should write out the names of each argument after the first one or two when you call a function with multiple arguments. Why? First, this will help you and others understand your code. It is usually obvious which argument your first input refers to (and sometimes the second input as well). However, you'd need a large memory to remember the third and fourth arguments of every R function. Second, and more importantly, writing out argument names prevents errors.
 
-If you do not write out the names of your arguments, R will match your values to the arguments in your function by order. For example, in the following code, the first value, `die`, will be matched to the first argument of `sample`, which is named `x`. The next value, `1`, will be matched to the next argument, `size`:
+If you do not write out the names of your arguments, R will match your values to the arguments in your function by order. For example, in the following code, the first value, `die`, will be matched to the first argument of `sample()`, which is named `x`. The next value, `1`, will be matched to the next argument, `size`:
 
 ``` r
 sample(die, 1)
@@ -374,7 +374,7 @@ sample(size = 1, x = die)
 
 ### Sample with Replacement
 
-If you set `size = 2`, you can *almost* simulate a pair of dice. Before we run that code, think for a minute why that might be the case. `sample` will return two numbers, one for each die:
+If you set `size = 2`, you can *almost* simulate a pair of dice. Before we run that code, think for a minute why that might be the case. `sample()` will return two numbers, one for each die:
 
 ``` r
 sample(die, size = 2)
@@ -383,16 +383,16 @@ sample(die, size = 2)
 
 I said this "almost" works because this method does something funny. If you use it many times, you'll notice that the second die never has the same value as the first die, which means you'll never roll something like a pair of threes or snake eyes. What is going on?
 
-By default, `sample` builds a sample *without replacement*. To see what this means, imagine that `sample` places all of the values of `die` in a jar or urn. Then imagine that `sample` reaches into the jar and pulls out values one by one to build its sample. Once a value has been drawn from the jar, `sample` sets it aside. The value doesn't go back into the jar, so it cannot be drawn again. So if `sample` selects a six on its first draw, it will not be able to select a six on the second draw; six is no longer in the jar to be selected. Although `sample` creates its sample electronically, it follows this seemingly physical behavior.
+By default, `sample()` builds a sample *without replacement*. To see what this means, imagine that `sample()` places all of the values of `die` in a jar or urn. Then imagine that `sample()` reaches into the jar and pulls out values one by one to build its sample. Once a value has been drawn from the jar, `sample()` sets it aside. The value doesn't go back into the jar, so it cannot be drawn again. So if `sample()` selects a six on its first draw, it will not be able to select a six on the second draw; six is no longer in the jar to be selected. Although `sample()` creates its sample electronically, it follows this seemingly physical behavior.
 
-One side effect of this behavior is that each draw depends on the draws that come before it. In the real world, however, when you roll a pair of dice, each die is independent of the other. If the first die comes up six, it does not prevent the second die from coming up six. In fact, it doesn't influence the second die in any way whatsoever. You can recreate this behavior in `sample` by adding the argument `replace = TRUE`:
+One side effect of this behavior is that each draw depends on the draws that come before it. In the real world, however, when you roll a pair of dice, each die is independent of the other. If the first die comes up six, it does not prevent the second die from coming up six. In fact, it doesn't influence the second die in any way whatsoever. You can recreate this behavior in `sample()` by adding the argument `replace = TRUE`:
 
 ``` r
 sample(die, size = 2, replace = TRUE)
 ## 5 5
 ```
 
-The argument `replace = TRUE` causes `sample` to sample *with replacement*. Our jar example provides a good way to understand the difference between sampling with replacement and without. When `sample` uses replacement, it draws a value from the jar and records the value. Then it puts the value back into the jar. In other words, `sample` *replaces* each value after each draw. As a result, `sample` may select the same value on the second draw. Each value has a chance of being selected each time. It is as if every draw were the first draw.
+The argument `replace = TRUE` causes `sample()` to sample *with replacement*. Our jar example provides a good way to understand the difference between sampling with replacement and without. When `sample()` uses replacement, it draws a value from the jar and records the value. Then it puts the value back into the jar. In other words, `sample()` *replaces* each value after each draw. As a result, `sample()` may select the same value on the second draw. Each value has a chance of being selected each time. It is as if every draw were the first draw.
 
 Sampling with replacement is an easy way to create *independent random samples*. Each value in your sample will be a sample of size one that is independent of the other values. This is the correct way to simulate a pair of dice:
 
@@ -401,7 +401,7 @@ sample(die, size = 2, replace = TRUE)
 ## 2 4
 ```
 
-Congratulate yourself; you've just run your first simulation in R! You now have a method for simulating the result of rolling a pair of dice. If you want to add up the dice, you can feed your result straight into the `sum` function:
+Congratulate yourself; you've just run your first simulation in R! You now have a method for simulating the result of rolling a pair of dice. If you want to add up the dice, you can feed your result straight into the `sum()` function:
 
 ``` r
 dice <- sample(die, size = 2, replace = TRUE)
@@ -425,7 +425,7 @@ dice
 ## 2 4
 ```
 
-Nope. Each time you call `dice`, R will show you the result of that one time you called `sample` and saved the output to `dice`. R won't rerun `sample(die, 2, replace = TRUE)` to create a new roll of the dice. This is a relief in a way. Once you save a set of results to an R object, those results do not change. Programming would be quite hard if the values of your objects changed each time you called them.
+Nope. Each time you call `dice`, R will show you the result of that one time you called `sample()` and saved the output to `dice`. R won't rerun `sample(die, 2, replace = TRUE)` to create a new roll of the dice. This is a relief in a way. Once you save a set of results to an R object, those results do not change. Programming would be quite hard if the values of your objects changed each time you called them.
 
 However, it *would* be convenient to have an object that can re-roll the dice whenever you call it. You can make such an object by writing your own R function.
 
@@ -439,7 +439,7 @@ dice <- sample(die, size = 2, replace = TRUE)
 sum(dice)
 ```
 
-You can retype this code into the console anytime you want to re-roll your dice. However, this is an awkward way to work with the code. It would be easier to use your code if you wrapped it into its own function, which is exactly what we'll do now. We're going to write a function named `roll` that you can use to roll your virtual dice. When you're finished, the function will work like this: each time you call `roll()`, R will return the sum of rolling two dice:
+You can retype this code into the console anytime you want to re-roll your dice. However, this is an awkward way to work with the code. It would be easier to use your code if you wrapped it into its own function, which is exactly what we'll do now. We're going to write a function named `roll()` that you can use to roll your virtual dice. When you're finished, the function will work like this: each time you call `roll()`, R will return the sum of rolling two dice:
 
 ``` r
 roll()
@@ -538,7 +538,7 @@ roll2()
 ##   object 'bones' not found
 ```
 
-You can supply `bones` when you call `roll2` if you make `bones` an argument of the function. To do this, put the name `bones` in the parentheses that follow `function` when you define `roll2`:
+You can supply `bones` when you call `roll2()` if you make `bones` an argument of the function. To do this, put the name `bones` in the parentheses that follow `function` when you define `roll2()`:
 
 ``` r
 roll2 <- function(bones) {
@@ -547,7 +547,7 @@ roll2 <- function(bones) {
 }
 ```
 
-Now `roll2` will work as long as you supply `bones` when you call the function. You can take advantage of this to roll different types of dice each time you call `roll2`. Dungeons and Dragons, here we come!
+Now `roll2()` will work as long as you supply `bones` when you call the function. You can take advantage of this to roll different types of dice each time you call `roll2()`. Dungeons and Dragons, here we come!
 
 Remember, we're rolling pairs of dice:
 
@@ -562,7 +562,7 @@ roll2(1:20)
 ## 31
 ```
 
-Notice that `roll2` will still give an error if you do not supply a value for the `bones` argument when you call `roll2`:
+Notice that `roll2()` will still give an error if you do not supply a value for the `bones` argument when you call `roll2()`:
 
 ``` r
 roll2()
@@ -570,7 +570,7 @@ roll2()
 ##   argument "bones" is missing, with no default
 ```
 
-You can prevent this error by giving the `bones` argument a default value. To do this, set `bones` equal to a value when you define `roll2`:
+You can prevent this error by giving the `bones` argument a default value. To do this, set `bones` equal to a value when you define `roll2()`:
 
 ``` r
 roll2 <- function(bones = 1:6) {
@@ -579,7 +579,7 @@ roll2 <- function(bones = 1:6) {
 }
 ```
 
-Now you can supply a new value for `bones` if you like, and `roll2` will use the default if you do not:
+Now you can supply a new value for `bones` if you like, and `roll2()` will use the default if you do not:
 
 ``` r
 roll2()
@@ -596,7 +596,7 @@ Once you've created your function, R will treat it like every other function in 
 
 ## Scripts
 
-What if you want to edit `roll2` again? You could go back and retype each line of code in `roll2`, but it would be so much easier if you had a draft of the code to start from. You can create a draft of your code as you go by using an R *script*. An R script is just a plain text file that you save R code in. You can open an R script in RStudio by going to `File > New File > R script` in the menu bar. RStudio will then open a fresh script above your console pane, as shown in @fig-script.
+What if you want to edit `roll2()` again? You could go back and retype each line of code in `roll2()`, but it would be so much easier if you had a draft of the code to start from. You can create a draft of your code as you go by using an R *script*. An R script is just a plain text file that you save R code in. You can open an R script in RStudio by going to `File > New File > R script` in the menu bar. RStudio will then open a fresh script above your console pane, as shown in @fig-script.
 
 I strongly encourage you to write and edit all of your R code in a script before you run it in the console. Why? This habit creates a reproducible record of your work. When you're finished for the day, you can save your script and then use it to rerun your entire analysis the next day. Scripts are also very handy for editing and proofreading your code, and they make a nice copy of your work to share with others. To save a script, click the scripts pane, and then go to `File > Save As` in the menu bar.
 

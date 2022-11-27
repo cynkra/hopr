@@ -12,9 +12,9 @@ play()
 ## $80
 ```
 
-The `play` function will need to do two things. First, it will need to randomly generate three symbols; and, second, it will need to calculate a prize based on those symbols.
+The `play()` function will need to do two things. First, it will need to randomly generate three symbols; and, second, it will need to calculate a prize based on those symbols.
 
-The first step is easy to simulate. You can randomly generate three symbols with the `sample` function---just like you randomly "rolled" two dice in [Project 1: Weighted Dice](#sec-project-dice). The following function generates three symbols from a group of common slot machine symbols: diamonds (`DD`), sevens (`7`), triple bars (`BBB`), double bars (`BB`), single bars (`B`), cherries (`C`), and zeroes (`0`). The symbols are selected randomly, and each symbol appears with a different probability:
+The first step is easy to simulate. You can randomly generate three symbols with the `sample()` function---just like you randomly "rolled" two dice in [Project 1: Weighted Dice](#sec-project-dice). The following function generates three symbols from a group of common slot machine symbols: diamonds (`DD`), sevens (`7`), triple bars (`BBB`), double bars (`BB`), single bars (`B`), cherries (`C`), and zeroes (`0`). The symbols are selected randomly, and each symbol appears with a different probability:
 
 ``` r
 get_symbols <- function() {
@@ -24,7 +24,7 @@ get_symbols <- function() {
 }
 ```
 
-You can use `get_symbols` to generate the symbols used in your slot machine:
+You can use `get_symbols()` to generate the symbols used in your slot machine:
 
 ``` r
 get_symbols()
@@ -37,7 +37,7 @@ get_symbols()
 ## "7" "0" "B"
 ```
 
-`get_symbols` uses the probabilities observed in a group of video lottery terminals from Manitoba, Canada. These slot machines became briefly controversial in the 1990s, when a reporter decided to test their payout rate. The machines appeared to pay out only 40 cents on the dollar, even though the manufacturer claimed they would pay out 92 cents on the dollar. The original data collected on the machines and a description of the controversy is available online in [a journal article by W. John Braun](http://bit.ly/jse_Braun). The controversy died down when additional testing showed that the manufacturer was correct.
+`get_symbols()` uses the probabilities observed in a group of video lottery terminals from Manitoba, Canada. These slot machines became briefly controversial in the 1990s, when a reporter decided to test their payout rate. The machines appeared to pay out only 40 cents on the dollar, even though the manufacturer claimed they would pay out 92 cents on the dollar. The original data collected on the machines and a description of the controversy is available online in [a journal article by W. John Braun](http://bit.ly/jse_Braun). The controversy died down when additional testing showed that the manufacturer was correct.
 
 The Manitoba slot machines use the complicated payout scheme shown in @tbl-prizes. A player will win a prize if he gets:
 
@@ -69,9 +69,9 @@ Diamonds are also special in another way. Every diamond that appears in a combin
 
 : Each play of the slot machine costs \$1. A player's symbols determine how much they win. Diamonds (`DD`) are wild, and each diamond doubles the final prize. \* = any symbol {#tbl-prizes}
 
-To create your `play` function, you will need to write a program that can take the output of `get_symbols` and calculate the correct prize based on @tbl-prizes.
+To create your `play()` function, you will need to write a program that can take the output of `get_symbols()` and calculate the correct prize based on @tbl-prizes.
 
-In R, programs are saved either as R scripts or as functions. We'll save your program as a function named `score`. When you are finished, you will be able to use `score` to calculate a prize like this:
+In R, programs are saved either as R scripts or as functions. We'll save your program as a function named `score()`. When you are finished, you will be able to use `score()` to calculate a prize like this:
 
 ``` r
 score(c("DD", "DD", "DD"))
@@ -89,10 +89,10 @@ play <- function() {
 ```
 
 ::: callout-note
-The `print` command prints its output to the console window, which makes `print` a useful way to display messages from within the body of a function.
+The `print()` command prints its output to the console window, which makes `print()` a useful way to display messages from within the body of a function.
 :::
 
-You may notice that `play` calls a new function, `print`. This will help `play` display the three slot machine symbols, since they do not get returned by the last line of the function. The `print` command prints its output to the console window -- even if R calls it from within a function.
+You may notice that `play()` calls a new function, `print()`. This will help `play()` display the three slot machine symbols, since they do not get returned by the last line of the function. The `print()` command prints its output to the console window -- even if R calls it from within a function.
 
 In [Project 1: Weighted Dice](#sec-project-dice), I encouraged you to write all of your R code in an R script, a text file where you can compose and save code. That advice will become very important as you work through this chapter. Remember that you can open an R script in RStudio by going to the menu bar and clicking on File \> New File \> R Script.
 
@@ -114,7 +114,7 @@ R programs contain two types of subtasks: sequential steps and parallel cases.
 
 ### Sequential Steps
 
-One way to subdivide a program is into a series of sequential steps. The `play` function takes the approach, shown in @fig-subdivide1. First, it generates three symbols (step 1), then it displays them in the console window (step 2), and then it scores them (step 3):
+One way to subdivide a program is into a series of sequential steps. The `play()` function takes the approach, shown in @fig-subdivide1. First, it generates three symbols (step 1), then it displays them in the console window (step 2), and then it scores them (step 3):
 
 ``` r
 play <- function() {
@@ -138,13 +138,13 @@ To have R execute steps in sequence, place the steps one after another in an R s
 
 Another way to divide a task is to spot groups of similar cases within the task. Some tasks require different algorithms for different groups of input. If you can identify those groups, you can work out their algorithms one at a time.
 
-For example, `score` will need to calculate the prize one way if `symbols` contains three of a kind (In that case, `score` will need to match the common symbol to a prize). `score` will need to calculate the prize a second way if the symbols are all bars (In that case, `score` can just assign a prize of \$5). And, finally, `score` will need to calculate the prize in a third way if the symbols do not contain three of a kind or all bars (In that case, `score` must count the number of cherries present). `score` will never use all three of these algorithms at once; it will always choose just one algorithm to run based on the combination of symbols.
+For example, `score()` will need to calculate the prize one way if `symbols` contains three of a kind (In that case, `score()` will need to match the common symbol to a prize). `score()` will need to calculate the prize a second way if the symbols are all bars (In that case, `score()` can just assign a prize of \$5). And, finally, `score()` will need to calculate the prize in a third way if the symbols do not contain three of a kind or all bars (In that case, `score()` must count the number of cherries present). `score()` will never use all three of these algorithms at once; it will always choose just one algorithm to run based on the combination of symbols.
 
-Diamonds complicate all of this because diamonds can be treated as wild cards. Let's ignore that for now and focus on the simpler case where diamonds double the prize but are not wilds. `score` can double the prize as necessary after it runs one of the following algorithms, as shown in @fig-subdivide2.
+Diamonds complicate all of this because diamonds can be treated as wild cards. Let's ignore that for now and focus on the simpler case where diamonds double the prize but are not wilds. `score()` can double the prize as necessary after it runs one of the following algorithms, as shown in @fig-subdivide2.
 
-Adding the `score` cases to the `play` steps reveals a strategy for the complete slot machine program, as shown in @fig-subdivide3.
+Adding the `score()` cases to the `play()` steps reveals a strategy for the complete slot machine program, as shown in @fig-subdivide3.
 
-We've already solved the first few steps in this strategy. Our program can get three slot machine symbols with the `get_symbols` function. Then it can display the symbols with the `print` function. Now let's examine how the program can handle the parallel score cases.
+We've already solved the first few steps in this strategy. Our program can get three slot machine symbols with the `get_symbols()` function. Then it can display the symbols with the `print()` function. Now let's examine how the program can handle the parallel score cases.
 
 ![The score function must distinguish between parallel cases.](images/hopr_0702.png){#fig-subdivide2}
 
@@ -198,9 +198,9 @@ num
 ## 4
 ```
 
-The condition of an `if` statement must evaluate to a *single* `TRUE` or `FALSE`. If the condition creates a vector of `TRUE`s and `FALSE`s (which is easier to make than you may think), your `if` statement will print a warning message and use only the first element of the vector. Remember that you can condense vectors of logical values to a single `TRUE` or `FALSE` with the functions `any` and `all`.
+The condition of an `if` statement must evaluate to a *single* `TRUE` or `FALSE`. If the condition creates a vector of `TRUE`s and `FALSE`s (which is easier to make than you may think), your `if` statement will print a warning message and use only the first element of the vector. Remember that you can condense vectors of logical values to a single `TRUE` or `FALSE` with the functions `any()` and `all()`.
 
-You don't have to limit your `if` statements to a single line of code; you can include as many lines as you like between the braces. For example, the following code uses many lines to ensure that `num` is positive. The additional lines print some informative statements if `num` begins as a negative number. R will skip the entire code block---`print` statements and all---if `num` begins as a positive number:
+You don't have to limit your `if` statements to a single line of code; you can include as many lines as you like between the braces. For example, the following code uses many lines to ensure that `num` is positive. The additional lines print some informative statements if `num` begins as a negative number. R will skip the entire code block---`print()` statements and all---if `num` begins as a positive number:
 
 ``` r
 num <- -1
@@ -291,7 +291,7 @@ Start with a decimal:
 a <- 3.14
 ```
 
-Then isolate the decimal component with `trunc`:
+Then isolate the decimal component with `trunc()`:
 
 ``` r
 dec <- a - trunc(a)
@@ -300,7 +300,7 @@ dec
 ```
 
 ::: callout-note
-`trunc` takes a number and returns only the portion of the number that appears to the left of the decimal place (i.e., the integer part of the number).
+`trunc()` takes a number and returns only the portion of the number that appears to the left of the decimal place (i.e., the integer part of the number).
 :::
 
 ::: callout-note
@@ -340,7 +340,7 @@ R will work through the `if` conditions until one evaluates to `TRUE`, then R wi
 
 If two `if` statements describe mutually exclusive events, it is better to join the `if` statements with an `else if` than to list them separately. This lets R ignore the second `if` statement whenever the first returns a `TRUE`, which saves work.
 
-You can use `if` and `else` to link the subtasks in your slot-machine function. Open a fresh R script, and copy this code into it. The code will be the skeleton of our final `score` function. Compare it to the flow chart for `score` in @fig-subdivide2:
+You can use `if` and `else` to link the subtasks in your slot-machine function. Open a fresh R script, and copy this code into it. The code will be the skeleton of our final `score()` function. Compare it to the flow chart for `score()` in @fig-subdivide2:
 
 ``` r
 if ( # Case 1: all the same <1>) {
@@ -375,7 +375,7 @@ Now we can work through the subtasks one at a time, adding R code to the `if` tr
 
 The first subtask asks you to test whether the symbols are three of a kind. How should you begin writing the code for this subtask?
 
-You know that the final `score` function will look something like this:
+You know that the final `score()` function will look something like this:
 
 ``` r
 score <- function(symbols) {
@@ -386,9 +386,9 @@ score <- function(symbols) {
 }
 ```
 
-Its argument, `symbols`, will be the output of `get_symbols`, a vector that contains three character strings. You could start writing `score` as I have written it, by defining an object named `score` and then slowly filling in the body of the function. However, this would be a bad idea. The eventual function will have eight separate parts, and it will not work correctly until *all* of those parts are written (and themselves work correctly). This means you would have to write the entire `score` function before you could test any of the subtasks. If `score` doesn't work---which is very likely---you will not know which subtask needs fixed.
+Its argument, `symbols`, will be the output of `get_symbols()`, a vector that contains three character strings. You could start writing `score()` as I have written it, by defining an object named `score()` and then slowly filling in the body of the function. However, this would be a bad idea. The eventual function will have eight separate parts, and it will not work correctly until *all* of those parts are written (and themselves work correctly). This means you would have to write the entire `score()` function before you could test any of the subtasks. If `score()` doesn't work---which is very likely---you will not know which subtask needs fixed.
 
-You can save yourself time and headaches if you focus on one subtask at a time. For each subtask, create a concrete example that you can test your code on. For example, you know that `score` will need to work on a vector named `symbols` that contains three character strings. If you make a real vector named `symbols`, you can run the code for many of your subtasks on the vector as you go:
+You can save yourself time and headaches if you focus on one subtask at a time. For each subtask, create a concrete example that you can test your code on. For example, you know that `score()` will need to work on a vector named `symbols` that contains three character strings. If you make a real vector named `symbols`, you can run the code for many of your subtasks on the vector as you go:
 
 ``` r
 symbols <- c("7", "7", "7")
@@ -401,7 +401,7 @@ symbols <- c("B", "BB", "BBB")
 symbols <- c("C", "DD", "0")
 ```
 
-Only combine your subtasks into a `score` function once each subtask works on a concrete example. If you follow this plan, you will spend more time using your functions and less time trying to figure out why they do not work.
+Only combine your subtasks into a `score()` function once each subtask works on a concrete example. If you follow this plan, you will spend more time using your functions and less time trying to figure out why they do not work.
 
 After you set up a concrete example, try to describe how you will do the subtask in English. The more precisely you can describe your solution, the easier it will be to write your R code.
 
@@ -437,7 +437,7 @@ As your vocabulary of R functions broadens, you'll think of more ways to do basi
 length(unique(symbols)) == 1
 ```
 
-The `unique` function returns every unique term that appears in a vector. If your `symbols` vector contains three of a kind (i.e., one unique term that appears three times), then `unique(symbols)` will return a vector of length `1`.
+The `unique()` function returns every unique term that appears in a vector. If your `symbols` vector contains three of a kind (i.e., one unique term that appears three times), then `unique(symbols)` will return a vector of length `1`.
 
 Now that you have a working test, you can add it to your slot-machine script:
 
@@ -482,7 +482,7 @@ As with many things in R, there are multiple ways to test whether `symbols` cont
 ## TRUE
 ```
 
-However, this is not a very efficient solution, because R has to run nine logical tests (and you have to type them). You can often replace multiple `|` operators with a single `%in%`. Also, you can check that a test is true for each element in a vector with `all`. These two changes shorten the preceding code to:
+However, this is not a very efficient solution, because R has to run nine logical tests (and you have to type them). You can often replace multiple `|` operators with a single `%in%`. Also, you can check that a test is true for each element in a vector with `all()`. These two changes shorten the preceding code to:
 
 ``` r
 all(symbols %in% c("B", "BB", "BBB"))
@@ -571,14 +571,14 @@ payouts["B"]
 ## 10
 ```
 
-If you want to leave behind the symbol's name when subsetting, you can run the `unname` function on the output:
+If you want to leave behind the symbol's name when subsetting, you can run the `unname()` function on the output:
 
 ``` r
 unname(payouts["DD"])
 ## 100 
 ```
 
-`unname` returns a copy of an object with the names attribute removed.
+`unname()` returns a copy of an object with the names attribute removed.
 
 `payouts` is a type of *lookup table*, an R object that you can use to look up values. Subsetting `payouts` provides a simple way to find the prize for a symbol. It doesn't take many lines of code, and it does the same amount of work whether your symbol is `DD` or `0`. You can create lookup tables in R by creating named objects that can be subsetted in clever ways.
 
@@ -668,7 +668,7 @@ symbols == "C"
 ## TRUE FALSE  TRUE
 ```
 
-It'd be even more useful to count how many of the symbols are cherries. You can do this with `sum`, which expects numeric input, not logical. Knowing this, R will coerce the `TRUE`s and `FALSE`s to `1`s and `0`s before doing the summation. As a result, `sum` will return the number of `TRUE`s, which is also the number of cherries:
+It'd be even more useful to count how many of the symbols are cherries. You can do this with `sum()`, which expects numeric input, not logical. Knowing this, R will coerce the `TRUE`s and `FALSE`s to `1`s and `0`s before doing the summation. As a result, `sum()` will return the number of `TRUE`s, which is also the number of cherries:
 
 ``` r
 sum(symbols == "C")
@@ -828,7 +828,7 @@ Here is a concise solution inspired by the previous pattern. The adjusted prize 
 prize * 2 ^ diamonds
 ```
 
-which gives us our final `score` script:
+which gives us our final `score()` script:
 
 ``` r
 same <- symbols[1] == symbols[2] && symbols[2] == symbols[3]
@@ -851,7 +851,7 @@ prize * 2 ^ diamonds
 
 ## Code Comments
 
-You now have a working score script that you can save to a function. Before you save your script, though, consider adding comments to your code with a `#`. Comments can make your code easier to understand by explaining *why* the code does what it does. You can also use comments to break long programs into scannable chunks. For example, I would include three comments in the `score` code:
+You now have a working score script that you can save to a function. Before you save your script, though, consider adding comments to your code with a `#`. Comments can make your code easier to understand by explaining *why* the code does what it does. You can also use comments to break long programs into scannable chunks. For example, I would include three comments in the `score()` code:
 
 ``` r
 # identify case
@@ -875,7 +875,7 @@ diamonds <- sum(symbols == "DD")
 prize * 2 ^ diamonds
 ```
 
-Now that each part of your code works, you can wrap it into a function with the methods you learned in [Writing Your Own Functions](#sec-write-functions). Either use RStudio's Extract Function option in the menu bar under Code, or use the `function` function. Ensure that the last line of the function returns a result (it does), and identify any arguments used by your function. Often the concrete examples that you used to test your code, like `symbols`, will become the arguments of your function. Run the following code to start using the `score` function:
+Now that each part of your code works, you can wrap it into a function with the methods you learned in [Writing Your Own Functions](#sec-write-functions). Either use RStudio's Extract Function option in the menu bar under Code, or use the `function` function. Ensure that the last line of the function returns a result (it does), and identify any arguments used by your function. Often the concrete examples that you used to test your code, like `symbols`, will become the arguments of your function. Run the following code to start using the `score()` function:
 
 ``` r
 score <- function (symbols) {
@@ -901,7 +901,7 @@ score <- function (symbols) {
 }
 ```
 
-Once you have defined the `score` function, the `play` function will work as well:
+Once you have defined the `score()` function, the `play()` function will work as well:
 
 ``` r
 play <- function() {

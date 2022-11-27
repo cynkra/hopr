@@ -2,9 +2,9 @@
 
 Loops are R's method for repeating a task, which makes them a useful tool for programming simulations. This chapter will teach you how to use R's loop tools.
 
-Let's use the `score` function to solve a real-world problem.
+Let's use the `score()` function to solve a real-world problem.
 
-Your slot machine is modeled after real machines that were accused of fraud. The machines appeared to pay out 40 cents on the dollar, but the manufacturer claimed that they paid out 92 cents on the dollar. You can calculate the exact payout rate of your machine with the `score` program. The payout rate will be the expected value of the slot machine's prize.
+Your slot machine is modeled after real machines that were accused of fraud. The machines appeared to pay out 40 cents on the dollar, but the manufacturer claimed that they paid out 92 cents on the dollar. You can calculate the exact payout rate of your machine with the `score()` program. The payout rate will be the expected value of the slot machine's prize.
 
 ## Expected Values
 
@@ -65,13 +65,13 @@ First, list out all of the possible outcomes. A total of 36 different outcomes c
 
 ## expand.grid
 
-The `expand.grid` function in R provides a quick way to write out every combination of the elements in *n* vectors. For example, you can list every combination of two dice. To do so, run `expand.grid` on two copies of `die`:
+The `expand.grid()` function in R provides a quick way to write out every combination of the elements in *n* vectors. For example, you can list every combination of two dice. To do so, run `expand.grid()` on two copies of `die`:
 
 ``` r
 rolls <- expand.grid(die, die)
 ```
 
-`expand.grid` will return a data frame that contains every way to pair an element from the first `die` vector with an element from the second `die` vector. This will capture all 36 possible combinations of values:
+`expand.grid()` will return a data frame that contains every way to pair an element from the first `die` vector with an element from the second `die` vector. This will capture all 36 possible combinations of values:
 
 ``` r
 rolls
@@ -85,7 +85,7 @@ rolls
 ## 36    6    6
 ```
 
-You can use `expand.grid` with more than two vectors if you like. For example, you could list every combination of rolling three dice with `expand.grid(die, die, die)` and every combination of rolling four dice with `expand.grid(die, die, die, die)`, and so on. `expand.grid` will always return a data frame that contains each possible combination of *n* elements from the *n* vectors. Each combination will contain exactly one element from each vector.
+You can use `expand.grid()` with more than two vectors if you like. For example, you could list every combination of rolling three dice with `expand.grid(die, die, die)` and every combination of rolling four dice with `expand.grid(die, die, die, die)`, and so on. `expand.grid()` will always return a data frame that contains each possible combination of *n* elements from the *n* vectors. Each combination will contain exactly one element from each vector.
 
 You can determine the value of each roll once you've made your list of outcomes. This will be the sum of the two dice, which you can calculate using R's element-wise execution:
 
@@ -224,16 +224,16 @@ Ready to begin?
 ::: callout
 ## Exercise: List the Combinations
 
-Use `expand.grid` to make a data frame that contains every possible combination of *three* symbols from the `wheel` vector:
+Use `expand.grid()` to make a data frame that contains every possible combination of *three* symbols from the `wheel` vector:
 
 ``` r
 wheel <- c("DD", "7", "BBB", "BB", "B", "C", "0")
 ```
 
-Be sure to add the argument `stringsAsFactors = FALSE` to your `expand.grid` call; otherwise, `expand.grid` will save the combinations as factors, an unfortunate choice that will disrupt the `score` function.
+Be sure to add the argument `stringsAsFactors = FALSE` to your `expand.grid()` call; otherwise, `expand.grid()` will save the combinations as factors, an unfortunate choice that will disrupt the `score()` function.
 :::
 
-To create a data frame of each combination of *three* symbols, you need to run `expand.grid` and give it *three* copies of `wheel`. The result will be a data frame with 343 rows, one for each unique combination of three slot symbols:
+To create a data frame of each combination of *three* symbols, you need to run `expand.grid()` and give it *three* copies of `wheel`. The result will be a data frame with 343 rows, one for each unique combination of three slot symbols:
 
 ``` r
 combos <- expand.grid(wheel, wheel, wheel, stringsAsFactors = FALSE)
@@ -252,7 +252,7 @@ combos
 ## 343    0    0    0
 ```
 
-Now, let's calculate the probability of getting each combination. You can use the probabilities contained in the `prob` argument of `get_symbols` to do this. These probabilities determine how frequently each symbol is chosen when your slot machine generates symbols. They were calculated after observing 345 plays of the Manitoba video lottery terminals. Zeroes have the largest chance of being selected (0.52) and cherries the least (0.01):
+Now, let's calculate the probability of getting each combination. You can use the probabilities contained in the `prob` argument of `get_symbols()` to do this. These probabilities determine how frequently each symbol is chosen when your slot machine generates symbols. They were calculated after observing 345 plays of the Manitoba video lottery terminals. Zeroes have the largest chance of being selected (0.52) and cherries the least (0.01):
 
 ``` r
 get_symbols <- function() {
@@ -330,7 +330,7 @@ sum(combos$prob)
 ## 1
 ```
 
-You only need to do one more thing before you can calculate the expected value: you must determine the prize for each combination in `combos`. You can calculate the prize with `score`. For example, we can calculate the prize for the first row of `combos` like this:
+You only need to do one more thing before you can calculate the expected value: you must determine the prize for each combination in `combos`. You can calculate the prize with `score()`. For example, we can calculate the prize for the first row of `combos` like this:
 
 ``` r
 symbols <- c(combos[1, 1], combos[1, 2], combos[1, 3])
@@ -415,11 +415,11 @@ In many programming languages, `for` loops are designed to work with integers, n
 You can recreate this effect in R by having a `for` loop execute on a set of integers, but don't lose track of the fact that R's `for` loops execute on members of a set, not sequences of integers.
 :::
 
-`for` loops are very useful in programming because they help you connect a piece of code with each element in a set. For example, we could use a `for` loop to run `score` once for each row in `combos`. However, R's `for` loops have a shortcoming that you'll want to know about before you start using them: `for` loops do not return output.
+`for` loops are very useful in programming because they help you connect a piece of code with each element in a set. For example, we could use a `for` loop to run `score()` once for each row in `combos`. However, R's `for` loops have a shortcoming that you'll want to know about before you start using them: `for` loops do not return output.
 
 `for` loops are like Las Vegas: what happens in a `for` loop stays in a `for` loop. If you want to use the products of a `for` loop, you must write the `for` loop so that it saves its own output as it goes.
 
-Our previous examples appeared to return output, but this was misleading. The examples worked because we called `print`, which always prints its arguments in the console (even if it is called from a function, a `for` loop, or anything else). Our `for` loops won't return anything if you remove the `print` call:
+Our previous examples appeared to return output, but this was misleading. The examples worked because we called `print()`, which always prints its arguments in the console (even if it is called from a function, a `for` loop, or anything else). Our `for` loops won't return anything if you remove the `print()` call:
 
 ``` r
 for (value in c("My", "third", "for", "loop")) {
@@ -468,7 +468,7 @@ The code creates a new column named prize and fills it with `NA`s. R uses its re
 ::: callout
 ## Exercise: Build a Loop
 
-Construct a `for` loop that will run `score` on all 343 rows of `combos`. The loop should run `score` on the first three entries of the \_i_th row of `combos` and should store the results in the \_i_th entry of `combos$prize`.
+Construct a `for` loop that will run `score()` on all 343 rows of `combos`. The loop should run `score()` on the first three entries of the \_i_th row of `combos` and should store the results in the \_i_th entry of `combos$prize`.
 :::
 
 You can score the rows in `combos` with:
@@ -480,7 +480,7 @@ for (i in 1:nrow(combos)) {
 }
 ```
 
-After you run the for loop, `combos$prize` will contain the correct prize for each row. This exercise also tests the `score` function; `score` appears to work correctly for every possible slot combination:
+After you run the for loop, `combos$prize` will contain the correct prize for each row. This exercise also tests the `score()` function; `score()` appears to work correctly for every possible slot combination:
 
 ``` r
 head(combos, 3)
@@ -499,7 +499,7 @@ sum(combos$prize * combos$prob)
 
 Uh oh. The expected prize is about 0.54, which means our slot machine only pays 54 cents on the dollar over the long run. Does this mean that the manufacturer of the Manitoba slot machines *was* lying?
 
-No, because we ignored an important feature of the slot machine when we wrote `score`: a diamond is wild. You can treat a `DD` as any other symbol if it increases your prize, with one exception. You cannot make a `DD` a `C` unless you already have another `C` in your symbols (it'd be too easy if every `DD` automatically earned you \$2).
+No, because we ignored an important feature of the slot machine when we wrote `score()`: a diamond is wild. You can treat a `DD` as any other symbol if it increases your prize, with one exception. You cannot make a `DD` a `C` unless you already have another `C` in your symbols (it'd be too easy if every `DD` automatically earned you \$2).
 
 The best thing about `DD`s is that their effects are cumulative. For example, consider the combination `B`, `DD`, `B`. Not only does the `DD` count as a `B`, which would earn a prize of \$10; the `DD` also doubles the prize to \$20.
 
@@ -508,9 +508,9 @@ Adding this behavior to our code is a little tougher than what we have done so f
 ::: callout
 ## Exercise: Challenge
 
-There are many ways to modify `score` that would count `DD`s as wild. If you would like to test your skill as an R programmer, try to write your own version of `score` that correctly handles diamonds.
+There are many ways to modify `score()` that would count `DD`s as wild. If you would like to test your skill as an R programmer, try to write your own version of `score()` that correctly handles diamonds.
 
-If you would like a more modest challenge, study the following `score` code. It accounts for wild diamonds in a way that I find elegant and succinct. See if you can understand each step in the code and how it achieves its result.
+If you would like a more modest challenge, study the following `score()` code. It accounts for wild diamonds in a way that I find elegant and succinct. See if you can understand each step in the code and how it achieves its result.
 :::
 
 Here is a version of score that handles wild diamonds:
@@ -553,7 +553,7 @@ score <- function(symbols) {
 ::: callout
 ## Exercise: Calculate the Expected Value
 
-Calculate the expected value of the slot machine when it uses the new `score` function. You can use the existing `combos` data frame, but you will need to build a `for` loop to recalculate `combos$prize`.
+Calculate the expected value of the slot machine when it uses the new `score()` function. You can use the existing `combos` data frame, but you will need to build a `for` loop to recalculate `combos$prize`.
 :::
 
 To update the expected value, just update `combos$prize`:
@@ -611,7 +611,7 @@ plays_till_broke(100)
 
 `repeat` loops are even more basic than `while` loops. They will repeat a chunk of code until you tell them to stop (by hitting Escape) or until they encounter the command `break`, which will stop the loop.
 
-You can use a `repeat` loop to recreate `plays_till_broke`, my function that simulates how long it takes to lose money while playing slots:
+You can use a `repeat` loop to recreate `plays_till_broke()`, my function that simulates how long it takes to lose money while playing slots:
 
 ``` r
 plays_till_broke <- function(start_with) {
@@ -635,6 +635,6 @@ plays_till_broke(100)
 
 You can repeat tasks in R with `for`, `while`, and `repeat` loops. To use `for`, give it a chunk of code to run and a set of objects to loop through. `for` will run the code chunk once for each object. If you wish to save the output of your loop, you can assign it to an object that exists outside of the loop.
 
-Repetition plays an important role in data science. It is the basis for simulation, as well as for estimates of variance and probability. Loops are not the only way to create repetition in R (consider `replicate` for example), but they are one of the most popular ways.
+Repetition plays an important role in data science. It is the basis for simulation, as well as for estimates of variance and probability. Loops are not the only way to create repetition in R (consider `replicate()` for example), but they are one of the most popular ways.
 
 Unfortunately, loops in R can sometimes be slower than loops in other languages. As a result, R's loops get a bad rap. This reputation is not entirely deserved, but it does highlight an important issue. Speed is essential to data analysis. When your code runs fast, you can work with bigger data and do more to it before you run out of time or computational power. [Speed](#sec-speed) will teach you how to write fast `for` loops and fast code in general with R. There, you will learn to write vectorized code, a style of lightning-fast code that takes advantage of all of R's strengths.

@@ -35,7 +35,7 @@ is.vector(die)
 ::: callout-tip
 ## is.vector
 
-`is.vector` tests whether an object is an atomic vector. It returns `TRUE` if the object is an atomic vector and `FALSE` otherwise.
+`is.vector()` tests whether an object is an atomic vector. It returns `TRUE` if the object is an atomic vector and `FALSE` otherwise.
 :::
 
 You can also make an atomic vector with just one value. R saves single values as an atomic vector of length 1:
@@ -57,7 +57,7 @@ length(die)
 ::: callout-tip
 ## length
 
-`length` returns the length of an atomic vector.
+`length()` returns the length of an atomic vector.
 :::
 
 Each atomic vector stores its values as a one-dimensional vector, and each atomic vector can only store one type of data. You can save different types of data in R by using different types of atomic vectors. Altogether, R recognizes six basic types of atomic vectors: *doubles*, *integers*, *characters*, *logicals*, *complex*, and *raw*.
@@ -98,7 +98,7 @@ die
 ## 1 2 3 4 5 6
 ```
 
-You'll usually know what type of object you are working with in R (it will be obvious), but you can also ask R what type of object an object is with `typeof`. For example:
+You'll usually know what type of object you are working with in R (it will be obvious), but you can also ask R what type of object an object is with `typeof()`. For example:
 
 ``` r
 typeof(die)
@@ -209,7 +209,7 @@ typeof(comp)
 ## "complex"
 ```
 
-Raw vectors store raw bytes of data. Making raw vectors gets complicated, but you can make an empty raw vector of length *n* with `raw(n)`. See the help page of `raw` for more options when working with this type of data:
+Raw vectors store raw bytes of data. Making raw vectors gets complicated, but you can make an empty raw vector of length *n* with `raw(n)`. See the help page of `raw()` for more options when working with this type of data:
 
 ``` r
 raw(3)
@@ -244,7 +244,7 @@ This creates a one-dimensional group of card names---great job! Now let's make a
 
 An attribute is a piece of information that you can attach to an atomic vector (or any R object). The attribute won't affect any of the values in the object, and it will not appear when you display your object. You can think of an attribute as "metadata"; it is just a convenient place to put information associated with an object. R will normally ignore this metadata, but some R functions will check for specific attributes. These functions may use the attributes to do special things with the data.
 
-You can see which attributes an object has with `attributes`. `attributes` will return `NULL` if an object has no attributes. An atomic vector, like `die`, won't have any attributes unless you give it some:
+You can see which attributes an object has with `attributes()`. `attributes()` will return `NULL` if an object has no attributes. An atomic vector, like `die`, won't have any attributes unless you give it some:
 
 ``` r
 attributes(die)
@@ -259,14 +259,14 @@ R uses `NULL` to represent the null set, an empty object. `NULL` is often return
 
 ### Names {#sec-names}
 
-The most common attributes to give an atomic vector are names, dimensions (dim), and classes. Each of these attributes has its own helper function that you can use to give attributes to an object. You can also use the helper functions to look up the value of these attributes for objects that already have them. For example, you can look up the value of the names attribute of `die` with `names`:
+The most common attributes to give an atomic vector are names, dimensions (dim), and classes. Each of these attributes has its own helper function that you can use to give attributes to an object. You can also use the helper functions to look up the value of these attributes for objects that already have them. For example, you can look up the value of the names attribute of `die` with `names()`:
 
 ``` r
 names(die)
 ## NULL
 ```
 
-`NULL` means that `die` does not have a names attribute. You can give one to `die` by assigning a character vector to the output of `names`. The vector should include one name for each element in `die`:
+`NULL` means that `die` does not have a names attribute. You can give one to `die` by assigning a character vector to the output of `names()`. The vector should include one name for each element in `die`:
 
 ``` r
 names(die) <- c("one", "two", "three", "four", "five", "six")
@@ -299,7 +299,7 @@ die + 1
 ##    2     3     4     5     6     7
 ```
 
-You can also use `names` to change the names attribute or remove it all together. To change the names, assign a new set of labels to `names`:
+You can also use `names()` to change the names attribute or remove it all together. To change the names, assign a new set of labels to `names()`:
 
 ``` r
 names(die) <- c("uno", "dos", "tres", "quatro", "cinco", "seis")
@@ -318,7 +318,7 @@ die
 
 ### Dim
 
-You can transform an atomic vector into an *n*-dimensional array by giving it a dimensions attribute with `dim`. To do this, set the `dim` attribute to a numeric vector of length *n*. R will reorganize the elements of the vector into *n* dimensions. Each dimension will have as many rows (or columns, etc.) as the *nth* value of the `dim` vector. For example, you can reorganize `die` into a 2 × 3 matrix (which has 2 rows and 3 columns):
+You can transform an atomic vector into an *n*-dimensional array by giving it a dimensions attribute with `dim()`. To do this, set the `dim()` attribute to a numeric vector of length *n*. R will reorganize the elements of the vector into *n* dimensions. Each dimension will have as many rows (or columns, etc.) as the *nth* value of the `dim()` vector. For example, you can reorganize `die` into a 2 × 3 matrix (which has 2 rows and 3 columns):
 
 ``` r
 dim(die) <- c(2, 3)
@@ -360,13 +360,13 @@ die
 ## [1,]    5    6
 ```
 
-R will always use the first value in `dim` for the number of rows and the second value for the number of columns. In general, rows always come first in R operations that deal with both rows and columns.
+R will always use the first value in `dim()` for the number of rows and the second value for the number of columns. In general, rows always come first in R operations that deal with both rows and columns.
 
-You may notice that you don't have much control over how R reorganizes the values into rows and columns. For example, R always fills up each matrix by columns, instead of by rows. If you'd like more control over this process, you can use one of R's helper functions, `matrix` or `array`. They do the same thing as changing the `dim` attribute, but they provide extra arguments to customize the process.
+You may notice that you don't have much control over how R reorganizes the values into rows and columns. For example, R always fills up each matrix by columns, instead of by rows. If you'd like more control over this process, you can use one of R's helper functions, `matrix()` or `array()`. They do the same thing as changing the `dim()` attribute, but they provide extra arguments to customize the process.
 
 ## Matrices
 
-Matrices store values in a two-dimensional array, just like a matrix from linear algebra. To create one, first give `matrix` an atomic vector to reorganize into a matrix. Then, define how many rows should be in the matrix by setting the `nrow` argument to a number. `matrix` will organize your vector of values into a matrix with the specified number of rows. Alternatively, you can set the `ncol` argument, which tells R how many columns to include in the matrix:
+Matrices store values in a two-dimensional array, just like a matrix from linear algebra. To create one, first give `matrix()` an atomic vector to reorganize into a matrix. Then, define how many rows should be in the matrix by setting the `nrow` argument to a number. `matrix()` will organize your vector of values into a matrix with the specified number of rows. Alternatively, you can set the `ncol` argument, which tells R how many columns to include in the matrix:
 
 ``` r
 m <- matrix(die, nrow = 2)
@@ -376,7 +376,7 @@ m
 ## [2,]    2    4    6
 ```
 
-`matrix` will fill up the matrix column by column by default, but you can fill the matrix row by row if you include the argument `byrow = TRUE`:
+`matrix()` will fill up the matrix column by column by default, but you can fill the matrix row by row if you include the argument `byrow = TRUE`:
 
 ``` r
 m <- matrix(die, nrow = 2, byrow = TRUE)
@@ -386,11 +386,11 @@ m
 ## [2,]    4    5    6
 ```
 
-`matrix` also has other default arguments that you can use to customize your matrix. You can read about them at `matrix`'s help page (accessible by `?matrix`).
+`matrix()` also has other default arguments that you can use to customize your matrix. You can read about them at `matrix()`'s help page (accessible by `?matrix`).
 
 ## Arrays
 
-The `array` function creates an n-dimensional array. For example, you could use `array` to sort values into a cube of three dimensions or a hypercube in 4, 5, or *n* dimensions. `array` is not as customizeable as `matrix` and basically does the same thing as setting the `dim` attribute. To use `array`, provide an atomic vector as the first argument, and a vector of dimensions as the second argument, now called `dim`:
+The `array()` function creates an n-dimensional array. For example, you could use `array()` to sort values into a cube of three dimensions or a hypercube in 4, 5, or *n* dimensions. `array()` is not as customizeable as `matrix()` and basically does the same thing as setting the `dim()` attribute. To use `array()`, provide an atomic vector as the first argument, and a vector of dimensions as the second argument, now called `dim()`:
 
 ``` r
 ar <- array(c(11:14, 21:24, 31:34), dim = c(2, 2, 3))
@@ -465,7 +465,7 @@ class(die)
 
 A matrix is a special case of an atomic vector. For example, the `die` matrix is a special case of a double vector. Every element in the matrix is still a double, but the elements have been arranged into a new structure. R added a `class` attribute to `die` when you changed its dimensions. This class describes `die`'s new format. Many R functions will specifically look for an object's `class` attribute, and then handle the object in a predetermined way based on the attribute.
 
-Note that an object's `class` attribute will not always appear when you run `attributes`; you may need to specifically search for it with `class`:
+Note that an object's `class` attribute will not always appear when you run `attributes()`; you may need to specifically search for it with `class`:
 
 ``` r
 attributes(die)
@@ -503,7 +503,7 @@ class(now)
 
 POSIXct is a widely used framework for representing dates and times. In the POSIXct framework, each time is represented by the number of seconds that have passed between the time and 12:00 AM January 1st 1970 (in the Universal Time Coordinated (UTC) zone). For example, the time above occurs 1,395,057,600 seconds after then. So in the POSIXct system, the time would be saved as 1395057600.
 
-R creates the time object by building a double vector with one element, `1395057600`. You can see this vector by removing the `class` attribute of `now`, or by using the `unclass` function, which does the same thing:
+R creates the time object by building a double vector with one element, `1395057600`. You can see this vector by removing the `class` attribute of `now`, or by using the `unclass()` function, which does the same thing:
 
 ``` r
 unclass(now)
@@ -532,7 +532,7 @@ There are many different classes of data in R and its packages, and new classes 
 
 Factors are R's way of storing categorical information, like ethnicity or eye color. Think of a factor as something like a gender; it can only have certain values (male or female), and these values may have their own idiosyncratic order (ladies first). This arrangement makes factors very useful for recording the treatment levels of a study and other categorical variables.
 
-To make a factor, pass an atomic vector into the `factor` function. R will recode the data in the vector as integers and store the results in an integer vector. R will also add a `levels` attribute to the integer, which contains a set of labels for displaying the factor values, and a `class` attribute, which contains the class `factor`:
+To make a factor, pass an atomic vector into the `factor()` function. R will recode the data in the vector as integers and store the results in an integer vector. R will also add a `levels()` attribute to the integer, which contains a set of labels for displaying the factor values, and a `class` attribute, which contains the class `factor()`:
 
 ``` r
 gender <- factor(c("male", "female", "female", "male"))
@@ -548,7 +548,7 @@ attributes(gender)
 ## [1] "factor"
 ```
 
-You can see exactly how R is storing your factor with `unclass`:
+You can see exactly how R is storing your factor with `unclass()`:
 
 ``` r
 unclass(gender)
@@ -569,7 +569,7 @@ Factors make it easy to put categorical variables into a statistical model becau
 
 R will often try to convert character strings to factors when you load and create data. In general, you will have a smoother experience if you do not let R make factors until you ask for them. I'll show you how to do this when we start reading in data.
 
-You can convert a factor to a character string with the `as.character` function. R will retain the display version of the factor, not the integers stored in memory:
+You can convert a factor to a character string with the `as.character()` function. R will retain the display version of the factor, not the integers stored in memory:
 
 ``` r
 as.character(gender)
@@ -631,9 +631,9 @@ sum(c(1, 1, 0, 0))
 ## 2
 ```
 
-This means that `sum` will count the number of `TRUE`s in a logical vector (and `mean` will calculate the proportion of `TRUE`s). Neat, huh?
+This means that `sum()` will count the number of `TRUE`s in a logical vector (and `mean()` will calculate the proportion of `TRUE`s). Neat, huh?
 
-You can explicitly ask R to convert data from one type to another with the `as` functions. R will convert the data whenever there is a sensible way to do so:
+You can explicitly ask R to convert data from one type to another with the `as()` functions. R will convert the data whenever there is a sensible way to do so:
 
 ``` r
 as.character(1)
@@ -658,9 +658,9 @@ In other cases, allowing only a single type of data is not a disadvantage. Vecto
 
 ## Lists
 
-Lists are like atomic vectors because they group data into a one-dimensional set. However, lists do not group together individual values; lists group together R objects, such as atomic vectors and other lists. For example, you can make a list that contains a numeric vector of length 31 in its first element, a character vector of length 1 in its second element, and a new list of length 2 in its third element. To do this, use the `list` function.
+Lists are like atomic vectors because they group data into a one-dimensional set. However, lists do not group together individual values; lists group together R objects, such as atomic vectors and other lists. For example, you can make a list that contains a numeric vector of length 31 in its first element, a character vector of length 1 in its second element, and a new list of length 2 in its third element. To do this, use the `list()` function.
 
-`list` creates a list the same way `c` creates a vector. Separate each element in the list with a comma:
+`list()` creates a list the same way `c` creates a vector. Separate each element in the list with a comma:
 
 ``` r
 list1 <- list(100:130, "R", list(TRUE, FALSE))
@@ -720,7 +720,7 @@ Data frames group vectors together into a two-dimensional table. Each vector bec
 
 ![Data frames store data as a sequence of columns. Each column can be a different data type. Every column in a data frame must be the same length.](images/hopr_0302.png){#fig-data-frame}
 
-Creating a data frame by hand takes a lot of typing, but you can do it (if you like) with the `data.frame` function. Give `data.frame` any number of vectors, each separated with a comma. Each vector should be set equal to a name that describes the vector. `data.frame` will turn each vector into a column of the new data frame:
+Creating a data frame by hand takes a lot of typing, but you can do it (if you like) with the `data.frame()` function. Give `data.frame()` any number of vectors, each separated with a comma. Each vector should be set equal to a name that describes the vector. `data.frame()` will turn each vector into a column of the new data frame:
 
 ``` r
 df <- data.frame(face = c("ace", "two", "six"),  
@@ -734,20 +734,20 @@ df
 
 You'll need to make sure that each vector is the same length (or can be made so with R's recycling rules; see @fig-recycle, as data frames cannot combine columns of different lengths.
 
-In the previous code, I named the arguments in `data.frame` `face`, `suit`, and `value`, but you can name the arguments whatever you like. `data.frame` will use your argument names to label the columns of the data frame.
+In the previous code, I named the arguments in `data.frame()` `face`, `suit`, and `value`, but you can name the arguments whatever you like. `data.frame()` will use your argument names to label the columns of the data frame.
 
 ::: callout-tip
 ## Names
 
-You can also give names to a list or vector when you create one of these objects. Use the same syntax as with `data.frame`:
+You can also give names to a list or vector when you create one of these objects. Use the same syntax as with `data.frame()`:
 
 `list(face = "ace", suit = "hearts", value = 1)`\
 `c(face = "ace", suit = "hearts", value = "one")`
 
-The names will be stored in the object's `names` attribute.
+The names will be stored in the object's `names()` attribute.
 :::
 
-If you look at the type of a data frame, you will see that it is a list. In fact, each data frame is a list with class `data.frame`. You can see what types of objects are grouped together by a list (or data frame) with the `str` function:
+If you look at the type of a data frame, you will see that it is a list. In fact, each data frame is a list with class `data.frame()`. You can see what types of objects are grouped together by a list (or data frame) with the `str()` function:
 
 ``` r
 typeof(df)
@@ -763,7 +763,7 @@ str(df)
 ##  $ value: num  1 2 3
 ```
 
-Notice that R saved your character strings as factors. I told you that R likes factors! It is not a very big deal here, but you can prevent this behavior by adding the argument `stringsAsFactors = FALSE` to `data.frame`:
+Notice that R saved your character strings as factors. I told you that R likes factors! It is not a very big deal here, but you can prevent this behavior by adding the argument `stringsAsFactors = FALSE` to `data.frame()`:
 
 ``` r
 df <- data.frame(face = c("ace", "two", "six"),  
@@ -795,7 +795,7 @@ A data frame is a great way to build an entire deck of cards. You can make each 
 ##   ... and so on.
 ```
 
-You could create this data frame with `data.frame`, but look at the typing involved! You need to write three vectors, each with 52 elements:
+You could create this data frame with `data.frame()`, but look at the typing involved! You need to write three vectors, each with 52 elements:
 
 ``` r
 deck <- data.frame(
@@ -875,14 +875,14 @@ head(deck)
 ```
 
 ::: callout-note
-`head` and `tail` are two functions that provide an easy way to peek at large data sets. `head` will return just the first six rows of the data set, and `tail` will return just the last six rows. To see a different number of rows, give `head` or `tail` a second argument, the number of rows you would like to view, for example, `head(deck, 10)`.
+`head()` and `tail()` are two functions that provide an easy way to peek at large data sets. `head()` will return just the first six rows of the data set, and `tail()` will return just the last six rows. To see a different number of rows, give `head()` or `tail()` a second argument, the number of rows you would like to view, for example, `head(deck, 10)`.
 :::
 
 R can open many types of files---not just CSVs. Visit [Loading and Saving Data in R](#sec-appendix-dataio) to learn how to open other common types of files in R.
 
 ## Saving Data
 
-Before we go any further, let's save a copy of `deck` as a new *.csv* file. That way you can email it to a colleague, store it on a thumb drive, or open it in a different program. You can save any data frame in R to a *.csv* file with the command `write.csv`. To save `deck`, run:
+Before we go any further, let's save a copy of `deck` as a new *.csv* file. That way you can email it to a colleague, store it on a thumb drive, or open it in a different program. You can save any data frame in R to a *.csv* file with the command `write.csv()`. To save `deck`, run:
 
 ``` r
 write.csv(deck, file = "cards.csv", row.names = FALSE)
@@ -890,11 +890,11 @@ write.csv(deck, file = "cards.csv", row.names = FALSE)
 
 R will turn your data frame into a plain-text file with the comma-separated values format and save the file to your working directory. To see where your working directory is, run `getwd()`. To change the location of your working directory, visit Session \> Set Working Directory \> Choose Directory in the RStudio menu bar.
 
-You can customize the save process with `write.csv`'s large set of optional arguments (see `?write.csv` for details). However, there are three arguments that you should use *every* time you run `write.csv`.
+You can customize the save process with `write.csv()`'s large set of optional arguments (see `?write.csv` for details). However, there are three arguments that you should use *every* time you run `write.csv()`.
 
-First, you should give `write.csv` the name of the data frame that you wish to save. Next, you should provide a file name to give your file. R will take this name quite literally, so be sure to provide an extension.
+First, you should give `write.csv()` the name of the data frame that you wish to save. Next, you should provide a file name to give your file. R will take this name quite literally, so be sure to provide an extension.
 
-Finally, you should add the argument `row.names = FALSE`. This will prevent R from adding a column of numbers at the start of your data frame. These numbers will identify your rows from 1 to 52, but it is unlikely that whatever program you open *cards.csv* in will understand the row name system. More than likely, the program will assume that the row names are the first column of data in your data frame. In fact, this is exactly what R will assume if you reopen *cards.csv*. If you save and open *cards.csv* several times in R, you'll notice duplicate columns of row numbers forming at the start of your data frame. I can't explain why R does this, but I can explain how to avoid it: use `row.names = FALSE` whenever you save data with `write.csv`.
+Finally, you should add the argument `row.names = FALSE`. This will prevent R from adding a column of numbers at the start of your data frame. These numbers will identify your rows from 1 to 52, but it is unlikely that whatever program you open *cards.csv* in will understand the row name system. More than likely, the program will assume that the row names are the first column of data in your data frame. In fact, this is exactly what R will assume if you reopen *cards.csv*. If you save and open *cards.csv* several times in R, you'll notice duplicate columns of row numbers forming at the start of your data frame. I can't explain why R does this, but I can explain how to avoid it: use `row.names = FALSE` whenever you save data with `write.csv()`.
 
 For more details about saving files, including how to compress saved files and how to save files in other formats, see [Loading and Saving Data in R](#sec-appendix-dataio).
 

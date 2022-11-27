@@ -227,7 +227,7 @@ deal <- function(cards) {
 ```
 :::
 
-You can use any of the systems that return the first row of your data frame to write a `deal` function. I'll use positive integers and blanks because I think they are easy to understand:
+You can use any of the systems that return the first row of your data frame to write a `deal()` function. I'll use positive integers and blanks because I think they are easy to understand:
 
 ``` r
 deal <- function(cards) {
@@ -235,7 +235,7 @@ deal <- function(cards) {
 }
 ```
 
-The function does exactly what you want: it deals the top card from your data set. However, the function becomes less impressive if you run `deal` over and over again:
+The function does exactly what you want: it deals the top card from your data set. However, the function becomes less impressive if you run `deal()` over and over again:
 
 ``` r
 deal(deck)
@@ -251,7 +251,7 @@ deal(deck)
 ## king spades    13
 ```
 
-`deal` always returns the king of spades because `deck` doesn't know that we've dealt the card away. Hence, the king of spades stays where it is, at the top of the deck ready to be dealt again. This is a difficult problem to solve, and we will *deal* with it in [Environments](#sec-environments). In the meantime, you can fix the problem by shuffling your deck after every deal. Then a new card will always be at the top.
+`deal()` always returns the king of spades because `deck` doesn't know that we've dealt the card away. Hence, the king of spades stays where it is, at the top of the deck ready to be dealt again. This is a difficult problem to solve, and we will *deal* with it in [Environments](#sec-environments). In the meantime, you can fix the problem by shuffling your deck after every deal. Then a new card will always be at the top.
 
 Shuffling is a temporary compromise: the probabilities at play in your deck will not match the probabilities that occur when you play a game with a single deck of cards. For example, there will still be a probability that the king of spades appears twice in a row. However, things are not as bad as they may seem. Most casinos use five or six decks at a time in card games to prevent card counting. The probabilities that you would encounter in those situations are very close to the ones we will create here.
 
@@ -289,7 +289,7 @@ head(deck3)
 ##  eight spades     8
 ```
 
-R complies. You'll get all the rows back, and they'll come in the order you ask for them. If you want the rows to come in a random order, then you need to sort the integers from 1 to 52 into a random order and use the results as a row index. How could you generate such a random collection of integers? With our friendly neighborhood `sample` function:
+R complies. You'll get all the rows back, and they'll come in the order you ask for them. If you want the rows to come in a random order, then you need to sort the integers from 1 to 52 into a random order and use the results as a row index. How could you generate such a random collection of integers? With our friendly neighborhood `sample()` function:
 
 ``` r
 random <- sample(1:52, size = 52)
@@ -314,10 +314,10 @@ Now the new set is truly shuffled. You'll be finished once you wrap these steps 
 ::: callout
 ## Exercise: Shuffle a Deck
 
-Use the preceding ideas to write a `shuffle` function. `shuffle` should take a data frame and return a shuffled copy of the data frame.
+Use the preceding ideas to write a `shuffle()` function. `shuffle()` should take a data frame and return a shuffled copy of the data frame.
 :::
 
-Your `shuffle` function will look like the one that follows:
+Your `shuffle()` function will look like the one that follows:
 
 ``` r
 shuffle <- function(cards) { 
@@ -353,7 +353,7 @@ deck$value
 ## 12 11 10  9  8  7  6  5  4  3  2  1
 ```
 
-R will return all of the values in the column as a vector. This `$` notation is incredibly useful because you will often store the variables of your data sets as columns in a data frame. From time to time, you'll want to run a function like `mean` or `median` on the values in a variable. In R, these functions expect a vector of values as input, and `deck$value` delivers your data in just the right format:
+R will return all of the values in the column as a vector. This `$` notation is incredibly useful because you will often store the variables of your data sets as columns in a data frame. From time to time, you'll want to run a function like `mean()` or `median()` on the values in a variable. In R, these functions expect a vector of values as input, and `deck$value` delivers your data in just the right format:
 
 ``` r
 mean(deck$value)
@@ -434,9 +434,9 @@ This difference is subtle but important. In the R community, there is a popular,
 ::: callout-important
 ## Never attach
 
-In R's early days, it became popular to use `attach()` on a data set once you had it loaded. Don't do this! `attach` recreates a computing environment similar to those used in other statistics applications like Stata and SPSS, which crossover users liked. However, R is not Stata or SPSS. R is optimized to use the R computing environment, and running `attach()` can cause confusion with some R functions.
+In R's early days, it became popular to use `attach()` on a data set once you had it loaded. Don't do this! `attach()` recreates a computing environment similar to those used in other statistics applications like Stata and SPSS, which crossover users liked. However, R is not Stata or SPSS. R is optimized to use the R computing environment, and running `attach()` can cause confusion with some R functions.
 
-What does `attach()` do? On the surface, `attach` saves you typing. If you attach the `deck` data set, you can refer to each of its variables by name; instead of typing `deck$face`, you can just type `face`. But typing isn't bad. It gives you a chance to be explicit, and in computer programming, explicit is good. Attaching a data set creates the possibility that R will confuse two variable names. If this occurs within a function, you're likely to get unusable results and an unhelpful error message to explain what happened.
+What does `attach()` do? On the surface, `attach()` saves you typing. If you attach the `deck` data set, you can refer to each of its variables by name; instead of typing `deck$face`, you can just type `face`. But typing isn't bad. It gives you a chance to be explicit, and in computer programming, explicit is good. Attaching a data set creates the possibility that R will confuse two variable names. If this occurs within a function, you're likely to get unusable results and an unhelpful error message to explain what happened.
 :::
 
 Now that you are an expert at retrieving values stored in R, let's summarize what you've accomplished.
