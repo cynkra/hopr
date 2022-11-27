@@ -345,8 +345,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>Loops are R’s method for repeating a task, which makes them a useful tool for programming simulations. This chapter will teach you how to use R’s loop tools.</p>
-<p>Let’s use the <code>score</code> function to solve a real-world problem.</p>
-<p>Your slot machine is modeled after real machines that were accused of fraud. The machines appeared to pay out 40 cents on the dollar, but the manufacturer claimed that they paid out 92 cents on the dollar. You can calculate the exact payout rate of your machine with the <code>score</code> program. The payout rate will be the expected value of the slot machine’s prize.</p>
+<p>Let’s use the <code>score()</code> function to solve a real-world problem.</p>
+<p>Your slot machine is modeled after real machines that were accused of fraud. The machines appeared to pay out 40 cents on the dollar, but the manufacturer claimed that they paid out 92 cents on the dollar. You can calculate the exact payout rate of your machine with the <code>score()</code> program. The payout rate will be the expected value of the slot machine’s prize.</p>
 <section id="expected-values" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="expected-values"><span class="header-section-number">9.1</span> Expected Values</h2>
 <p>The expected value of a random event is a type of weighted average; it is the sum of each possible outcome of the event, weighted by the probability that each outcome occurs:</p>
@@ -389,9 +389,9 @@ E(\text{die}) &amp; = \sum_{i = 1}^{n}\left( \text{die}_{i} \cdot P(\text{die}_{
 </section>
 <section id="expand.grid" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="expand.grid"><span class="header-section-number">9.2</span> expand.grid</h2>
-<p>The <code>expand.grid</code> function in R provides a quick way to write out every combination of the elements in <em>n</em> vectors. For example, you can list every combination of two dice. To do so, run <code>expand.grid</code> on two copies of <code>die</code>:</p>
+<p>The <code>expand.grid()</code> function in R provides a quick way to write out every combination of the elements in <em>n</em> vectors. For example, you can list every combination of two dice. To do so, run <code>expand.grid()</code> on two copies of <code>die</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rolls <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(die, die)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>expand.grid</code> will return a data frame that contains every way to pair an element from the first <code>die</code> vector with an element from the second <code>die</code> vector. This will capture all 36 possible combinations of values:</p>
+<p><code>expand.grid()</code> will return a data frame that contains every way to pair an element from the first <code>die</code> vector with an element from the second <code>die</code> vector. This will capture all 36 possible combinations of values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rolls</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    Var1 Var2</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1    1</span></span>
@@ -401,7 +401,7 @@ E(\text{die}) &amp; = \sum_{i = 1}^{n}\left( \text{die}_{i} \cdot P(\text{die}_{
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 34    4    6</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 35    5    6</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 36    6    6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can use <code>expand.grid</code> with more than two vectors if you like. For example, you could list every combination of rolling three dice with <code>expand.grid(die, die, die)</code> and every combination of rolling four dice with <code>expand.grid(die, die, die, die)</code>, and so on. <code>expand.grid</code> will always return a data frame that contains each possible combination of <em>n</em> elements from the <em>n</em> vectors. Each combination will contain exactly one element from each vector.</p>
+<p>You can use <code>expand.grid()</code> with more than two vectors if you like. For example, you could list every combination of rolling three dice with <code>expand.grid(die, die, die)</code> and every combination of rolling four dice with <code>expand.grid(die, die, die, die)</code>, and so on. <code>expand.grid()</code> will always return a data frame that contains each possible combination of <em>n</em> elements from the <em>n</em> vectors. Each combination will contain exactly one element from each vector.</p>
 <p>You can determine the value of each roll once you’ve made your list of outcomes. This will be the sum of the two dice, which you can calculate using R’s element-wise execution:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rolls<span class="sc">$</span>value <span class="ot">&lt;-</span> rolls<span class="sc">$</span>Var1 <span class="sc">+</span> rolls<span class="sc">$</span>Var2</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(rolls, <span class="dv">3</span>)</span>
@@ -504,12 +504,12 @@ Exercise: List the Combinations
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use <code>expand.grid</code> to make a data frame that contains every possible combination of <em>three</em> symbols from the <code>wheel</code> vector:</p>
+<p>Use <code>expand.grid()</code> to make a data frame that contains every possible combination of <em>three</em> symbols from the <code>wheel</code> vector:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wheel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DD"</span>, <span class="st">"7"</span>, <span class="st">"BBB"</span>, <span class="st">"BB"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Be sure to add the argument <code>stringsAsFactors = FALSE</code> to your <code>expand.grid</code> call; otherwise, <code>expand.grid</code> will save the combinations as factors, an unfortunate choice that will disrupt the <code>score</code> function.</p>
+<p>Be sure to add the argument <code>stringsAsFactors = FALSE</code> to your <code>expand.grid()</code> call; otherwise, <code>expand.grid()</code> will save the combinations as factors, an unfortunate choice that will disrupt the <code>score()</code> function.</p>
 </div>
 </div>
-<p>To create a data frame of each combination of <em>three</em> symbols, you need to run <code>expand.grid</code> and give it <em>three</em> copies of <code>wheel</code>. The result will be a data frame with 343 rows, one for each unique combination of three slot symbols:</p>
+<p>To create a data frame of each combination of <em>three</em> symbols, you need to run <code>expand.grid()</code> and give it <em>three</em> copies of <code>wheel</code>. The result will be a data frame with 343 rows, one for each unique combination of three slot symbols:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>combos <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(wheel, wheel, wheel, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>combos</span>
@@ -524,7 +524,7 @@ Exercise: List the Combinations
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 341    B    0    0</span></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 342    C    0    0</span></span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 343    0    0    0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now, let’s calculate the probability of getting each combination. You can use the probabilities contained in the <code>prob</code> argument of <code>get_symbols</code> to do this. These probabilities determine how frequently each symbol is chosen when your slot machine generates symbols. They were calculated after observing 345 plays of the Manitoba video lottery terminals. Zeroes have the largest chance of being selected (0.52) and cherries the least (0.01):</p>
+<p>Now, let’s calculate the probability of getting each combination. You can use the probabilities contained in the <code>prob</code> argument of <code>get_symbols()</code> to do this. These probabilities determine how frequently each symbol is chosen when your slot machine generates symbols. They were calculated after observing 345 plays of the Manitoba video lottery terminals. Zeroes have the largest chance of being selected (0.52) and cherries the least (0.01):</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>get_symbols <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  wheel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DD"</span>, <span class="st">"7"</span>, <span class="st">"BBB"</span>, <span class="st">"BB"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"0"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(wheel, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>, </span>
@@ -599,7 +599,7 @@ Exercise: Calculate Probabilities for Each Combination
 <p>The sum of the probabilities is one, which suggests that our math is correct:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(combos<span class="sc">$</span>prob)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You only need to do one more thing before you can calculate the expected value: you must determine the prize for each combination in <code>combos</code>. You can calculate the prize with <code>score</code>. For example, we can calculate the prize for the first row of <code>combos</code> like this:</p>
+<p>You only need to do one more thing before you can calculate the expected value: you must determine the prize for each combination in <code>combos</code>. You can calculate the prize with <code>score()</code>. For example, we can calculate the prize for the first row of <code>combos</code> like this:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>symbols <span class="ot">&lt;-</span> <span class="fu">c</span>(combos[<span class="dv">1</span>, <span class="dv">1</span>], combos[<span class="dv">1</span>, <span class="dv">2</span>], combos[<span class="dv">1</span>, <span class="dv">3</span>])</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="do">## "DD" "DD" "DD"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -671,9 +671,9 @@ For loops run on sets
 <p>You can recreate this effect in R by having a <code>for</code> loop execute on a set of integers, but don’t lose track of the fact that R’s <code>for</code> loops execute on members of a set, not sequences of integers.</p>
 </div>
 </div>
-<p><code>for</code> loops are very useful in programming because they help you connect a piece of code with each element in a set. For example, we could use a <code>for</code> loop to run <code>score</code> once for each row in <code>combos</code>. However, R’s <code>for</code> loops have a shortcoming that you’ll want to know about before you start using them: <code>for</code> loops do not return output.</p>
+<p><code>for</code> loops are very useful in programming because they help you connect a piece of code with each element in a set. For example, we could use a <code>for</code> loop to run <code>score()</code> once for each row in <code>combos</code>. However, R’s <code>for</code> loops have a shortcoming that you’ll want to know about before you start using them: <code>for</code> loops do not return output.</p>
 <p><code>for</code> loops are like Las Vegas: what happens in a <code>for</code> loop stays in a <code>for</code> loop. If you want to use the products of a <code>for</code> loop, you must write the <code>for</code> loop so that it saves its own output as it goes.</p>
-<p>Our previous examples appeared to return output, but this was misleading. The examples worked because we called <code>print</code>, which always prints its arguments in the console (even if it is called from a function, a <code>for</code> loop, or anything else). Our <code>for</code> loops won’t return anything if you remove the <code>print</code> call:</p>
+<p>Our previous examples appeared to return output, but this was misleading. The examples worked because we called <code>print()</code>, which always prints its arguments in the console (even if it is called from a function, a <code>for</code> loop, or anything else). Our <code>for</code> loops won’t return anything if you remove the <code>print()</code> call:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (value <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"My"</span>, <span class="st">"third"</span>, <span class="st">"for"</span>, <span class="st">"loop"</span>)) {</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  value</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -710,7 +710,7 @@ Exercise: Build a Loop
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Construct a <code>for</code> loop that will run <code>score</code> on all 343 rows of <code>combos</code>. The loop should run <code>score</code> on the first three entries of the _i_th row of <code>combos</code> and should store the results in the _i_th entry of <code>combos$prize</code>.</p>
+<p>Construct a <code>for</code> loop that will run <code>score()</code> on all 343 rows of <code>combos</code>. The loop should run <code>score()</code> on the first three entries of the _i_th row of <code>combos</code> and should store the results in the _i_th entry of <code>combos$prize</code>.</p>
 </div>
 </div>
 <p>You can score the rows in <code>combos</code> with:</p>
@@ -718,7 +718,7 @@ Exercise: Build a Loop
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  symbols <span class="ot">&lt;-</span> <span class="fu">c</span>(combos[i, <span class="dv">1</span>], combos[i, <span class="dv">2</span>], combos[i, <span class="dv">3</span>])</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  combos<span class="sc">$</span>prize[i] <span class="ot">&lt;-</span> <span class="fu">score</span>(symbols)</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>After you run the for loop, <code>combos$prize</code> will contain the correct prize for each row. This exercise also tests the <code>score</code> function; <code>score</code> appears to work correctly for every possible slot combination:</p>
+<p>After you run the for loop, <code>combos$prize</code> will contain the correct prize for each row. This exercise also tests the <code>score()</code> function; <code>score()</code> appears to work correctly for every possible slot combination:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(combos, <span class="dv">3</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Var1 Var2 Var3 prob1 prob2 prob3     prob prize</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   DD   DD   DD  0.03  0.03  0.03 0.000027   800</span></span>
@@ -728,7 +728,7 @@ Exercise: Build a Loop
 <div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(combos<span class="sc">$</span>prize <span class="sc">*</span> combos<span class="sc">$</span>prob)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.538014</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Uh oh. The expected prize is about 0.54, which means our slot machine only pays 54 cents on the dollar over the long run. Does this mean that the manufacturer of the Manitoba slot machines <em>was</em> lying?</p>
-<p>No, because we ignored an important feature of the slot machine when we wrote <code>score</code>: a diamond is wild. You can treat a <code>DD</code> as any other symbol if it increases your prize, with one exception. You cannot make a <code>DD</code> a <code>C</code> unless you already have another <code>C</code> in your symbols (it’d be too easy if every <code>DD</code> automatically earned you $2).</p>
+<p>No, because we ignored an important feature of the slot machine when we wrote <code>score()</code>: a diamond is wild. You can treat a <code>DD</code> as any other symbol if it increases your prize, with one exception. You cannot make a <code>DD</code> a <code>C</code> unless you already have another <code>C</code> in your symbols (it’d be too easy if every <code>DD</code> automatically earned you $2).</p>
 <p>The best thing about <code>DD</code>s is that their effects are cumulative. For example, consider the combination <code>B</code>, <code>DD</code>, <code>B</code>. Not only does the <code>DD</code> count as a <code>B</code>, which would earn a prize of $10; the <code>DD</code> also doubles the prize to $20.</p>
 <p>Adding this behavior to our code is a little tougher than what we have done so far, but it involves all of the same principles. You can decide that your slot machine doesn’t use wilds and keep the code that we have. In that case, your slot machine will have a payout rate of about 54 percent. Or, you could rewrite your code to use wilds. If you do, you will find that your slot machine has a payout rate of 93 percent, one percent higher than the manufacturer’s claim. You can calculate this rate with the same method that we used in this section.</p>
 <div class="callout callout callout-style-simple no-icon callout-captioned">
@@ -741,8 +741,8 @@ Exercise: Challenge
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There are many ways to modify <code>score</code> that would count <code>DD</code>s as wild. If you would like to test your skill as an R programmer, try to write your own version of <code>score</code> that correctly handles diamonds.</p>
-<p>If you would like a more modest challenge, study the following <code>score</code> code. It accounts for wild diamonds in a way that I find elegant and succinct. See if you can understand each step in the code and how it achieves its result.</p>
+<p>There are many ways to modify <code>score()</code> that would count <code>DD</code>s as wild. If you would like to test your skill as an R programmer, try to write your own version of <code>score()</code> that correctly handles diamonds.</p>
+<p>If you would like a more modest challenge, study the following <code>score()</code> code. It accounts for wild diamonds in a way that I find elegant and succinct. See if you can understand each step in the code and how it achieves its result.</p>
 </div>
 </div>
 <p>Here is a version of score that handles wild diamonds:</p>
@@ -788,7 +788,7 @@ Exercise: Calculate the Expected Value
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Calculate the expected value of the slot machine when it uses the new <code>score</code> function. You can use the existing <code>combos</code> data frame, but you will need to build a <code>for</code> loop to recalculate <code>combos$prize</code>.</p>
+<p>Calculate the expected value of the slot machine when it uses the new <code>score()</code> function. You can use the existing <code>combos</code> data frame, but you will need to build a <code>for</code> loop to recalculate <code>combos$prize</code>.</p>
 </div>
 </div>
 <p>To update the expected value, just update <code>combos$prize</code>:</p>
@@ -827,7 +827,7 @@ Exercise: Calculate the Expected Value
 <section id="repeat-loops" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="repeat-loops"><span class="header-section-number">9.5</span> repeat Loops</h2>
 <p><code>repeat</code> loops are even more basic than <code>while</code> loops. They will repeat a chunk of code until you tell them to stop (by hitting Escape) or until they encounter the command <code>break</code>, which will stop the loop.</p>
-<p>You can use a <code>repeat</code> loop to recreate <code>plays_till_broke</code>, my function that simulates how long it takes to lose money while playing slots:</p>
+<p>You can use a <code>repeat</code> loop to recreate <code>plays_till_broke()</code>, my function that simulates how long it takes to lose money while playing slots:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plays_till_broke <span class="ot">&lt;-</span> <span class="cf">function</span>(start_with) {</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  cash <span class="ot">&lt;-</span> start_with</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="dv">0</span></span>
@@ -847,7 +847,7 @@ Exercise: Calculate the Expected Value
 <section id="summary" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.6</span> Summary</h2>
 <p>You can repeat tasks in R with <code>for</code>, <code>while</code>, and <code>repeat</code> loops. To use <code>for</code>, give it a chunk of code to run and a set of objects to loop through. <code>for</code> will run the code chunk once for each object. If you wish to save the output of your loop, you can assign it to an object that exists outside of the loop.</p>
-<p>Repetition plays an important role in data science. It is the basis for simulation, as well as for estimates of variance and probability. Loops are not the only way to create repetition in R (consider <code>replicate</code> for example), but they are one of the most popular ways.</p>
+<p>Repetition plays an important role in data science. It is the basis for simulation, as well as for estimates of variance and probability. Loops are not the only way to create repetition in R (consider <code>replicate()</code> for example), but they are one of the most popular ways.</p>
 <p>Unfortunately, loops in R can sometimes be slower than loops in other languages. As a result, R’s loops get a bad rap. This reputation is not entirely deserved, but it does highlight an important issue. Speed is essential to data analysis. When your code runs fast, you can work with bigger data and do more to it before you run out of time or computational power. <a href="speed.html">Speed</a> will teach you how to write fast <code>for</code> loops and fast code in general with R. There, you will learn to write vectorized code, a style of lightning-fast code that takes advantage of all of R’s strengths.</p>
 
 

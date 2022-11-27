@@ -350,7 +350,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="vectorized-code" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="vectorized-code"><span class="header-section-number">10.1</span> Vectorized Code</h2>
 <p>You can write a piece of code in many different ways, but the fastest R code will usually take advantage of three things: logical tests, subsetting, and element-wise execution. These are the things that R does best. Code that uses these things usually has a certain quality: it is <em>vectorized</em>; the code can take a vector of values as input and manipulate each value in the vector at the same time.</p>
-<p>To see what vectorized code looks like, compare these two examples of an absolute value function. Each takes a vector of numbers and transforms it into a vector of absolute values (e.g., positive numbers). The first example is not vectorized; <code>abs_loop</code> uses a <code>for</code> loop to manipulate each element of the vector one at a time:</p>
+<p>To see what vectorized code looks like, compare these two examples of an absolute value function. Each takes a vector of numbers and transforms it into a vector of absolute values (e.g., positive numbers). The first example is not vectorized; <code>abs_loop()</code> uses a <code>for</code> loop to manipulate each element of the vector one at a time:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>abs_loop <span class="ot">&lt;-</span> <span class="cf">function</span>(vec){</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(vec)) {</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (vec[i] <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
@@ -359,15 +359,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  vec</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The second example, <code>abs_set</code>, is a vectorized version of <code>abs_loop</code>. It uses logical subsetting to manipulate every negative number in the vector at the same time:</p>
+<p>The second example, <code>abs_set()</code>, is a vectorized version of <code>abs_loop()</code>. It uses logical subsetting to manipulate every negative number in the vector at the same time:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>abs_sets <span class="ot">&lt;-</span> <span class="cf">function</span>(vec){</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  negs <span class="ot">&lt;-</span> vec <span class="sc">&lt;</span> <span class="dv">0</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  vec[negs] <span class="ot">&lt;-</span> vec[negs] <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  vec</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>abs_set</code> is much faster than <code>abs_loop</code> because it relies on operations that R does quickly: logical tests, subsetting, and element-wise execution.</p>
-<p>You can use the <code>system.time</code> function to see just how fast <code>abs_set</code> is. <code>system.time</code> takes an R expression, runs it, and then displays how much time elapsed while the expression ran.</p>
-<p>To compare <code>abs_loop</code> and <code>abs_set</code>, first make a long vector of positive and negative numbers. <code>long</code> will contain 10 million values:</p>
+<p><code>abs_set()</code> is much faster than <code>abs_loop()</code> because it relies on operations that R does quickly: logical tests, subsetting, and element-wise execution.</p>
+<p>You can use the <code>system.time()</code> function to see just how fast <code>abs_set()</code> is. <code>system.time()</code> takes an R expression, runs it, and then displays how much time elapsed while the expression ran.</p>
+<p>To compare <code>abs_loop()</code> and <code>abs_set()</code>, first make a long vector of positive and negative numbers. <code>long</code> will contain 10 million values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>long <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="dv">5000000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -379,10 +379,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>rep</code> repeats a value, or vector of values, many times. To use <code>rep</code>, give it a vector of values and then the number of times to repeat the vector. R will return the results as a new, longer vector.</p>
+<p><code>rep()</code> repeats a value, or vector of values, many times. To use <code>rep()</code>, give it a vector of values and then the number of times to repeat the vector. R will return the results as a new, longer vector.</p>
 </div>
 </div>
-<p>You can then use <code>system.time</code> to measure how much time it takes each function to evaluate <code>long</code>:</p>
+<p>You can then use <code>system.time()</code> to measure how much time it takes each function to evaluate <code>long</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">abs_loop</span>(long))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  15.982   0.032  16.018</span></span>
@@ -400,11 +400,11 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Don’t confuse <code>system.time</code> with <code>Sys.time</code>, which returns the current time.</p>
+<p>Don’t confuse <code>system.time()</code> with <code>Sys.time()</code>, which returns the current time.</p>
 </div>
 </div>
-<p>The first two columns of the output of <code>system.time</code> report how many seconds your computer spent executing the call on the user side and system sides of your process, a dichotomy that will vary from OS to OS.</p>
-<p>The last column displays how many seconds elapsed while R ran the expression. The results show that <code>abs_set</code> calculated the absolute value 30 times faster than <code>abs_loop</code> when applied to a vector of 10 million numbers. You can expect similar speed-ups whenever you write vectorized code.</p>
+<p>The first two columns of the output of <code>system.time()</code> report how many seconds your computer spent executing the call on the user side and system sides of your process, a dichotomy that will vary from OS to OS.</p>
+<p>The last column displays how many seconds elapsed while R ran the expression. The results show that <code>abs_set()</code> calculated the absolute value 30 times faster than <code>abs_loop()</code> when applied to a vector of 10 million numbers. You can expect similar speed-ups whenever you write vectorized code.</p>
 <div class="callout callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -415,11 +415,11 @@ Exercise: How fast is abs?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Many preexisting R functions are already vectorized and have been optimized to perform quickly. You can make your code faster by relying on these functions whenever possible. For example, R comes with a built-in absolute value function, <code>abs</code>.</p>
-<p>Check to see how much faster <code>abs</code> computes the absolute value of <code>long</code> than <code>abs_loop</code> and <code>abs_set</code> do.</p>
+<p>Many preexisting R functions are already vectorized and have been optimized to perform quickly. You can make your code faster by relying on these functions whenever possible. For example, R comes with a built-in absolute value function, <code>abs()</code>.</p>
+<p>Check to see how much faster <code>abs()</code> computes the absolute value of <code>long</code> than <code>abs_loop()</code> and <code>abs_set()</code> do.</p>
 </div>
 </div>
-<p>You can measure the speed of <code>abs</code> with <code>system.time</code>. It takes <code>abs</code> a lightning-fast 0.05 seconds to calculate the absolute value of 10 million numbers. This is 0.592 / 0.054 = 10.96 times faster than <code>abs_set</code> and nearly 300 times faster than <code>abs_loop</code>:</p>
+<p>You can measure the speed of <code>abs()</code> with <code>system.time()</code>. It takes <code>abs()</code> a lightning-fast 0.05 seconds to calculate the absolute value of 10 million numbers. This is 0.592 / 0.054 = 10.96 times faster than <code>abs_set()</code> and nearly 300 times faster than <code>abs_loop()</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">abs</span>(long))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   user  system elapsed </span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.037   0.018   0.054</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -431,11 +431,11 @@ Exercise: How fast is abs?
 <li>Use vectorized functions to complete the sequential steps in your program.</li>
 <li>Use logical subsetting to handle parallel cases. Try to manipulate every element in a case at once.</li>
 </ol>
-<p><code>abs_loop</code> and <code>abs_set</code> illustrate these rules. The functions both handle two cases and perform one sequential step, <a href="#fig-abs">Figure&nbsp;<span>10.1</span></a>. If a number is positive, the functions leave it alone. If a number is negative, the functions multiply it by negative one.</p>
+<p><code>abs_loop()</code> and <code>abs_set()</code> illustrate these rules. The functions both handle two cases and perform one sequential step, <a href="#fig-abs">Figure&nbsp;<span>10.1</span></a>. If a number is positive, the functions leave it alone. If a number is negative, the functions multiply it by negative one.</p>
 <div id="fig-abs" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/hopr_1001.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: <code>abs_loop</code> uses a for loop to sift data into one of two cases: negative numbers and nonnegative numbers.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.1: <code>abs_loop()</code> uses a for loop to sift data into one of two cases: negative numbers and nonnegative numbers.</figcaption><p></p>
 </figure>
 </div>
 <p>You can identify all of the elements of a vector that fall into a case with a logical test. R will execute the test in element-wise fashion and return a <code>TRUE</code> for every element that belongs in the case. For example, <code>vec &lt; 0</code> identifies every value of <code>vec</code> that belongs to the negative case. You can use the same logical test to extract the set of negative values with logical subsetting:</p>
@@ -499,8 +499,8 @@ Exercise: Vectorize a Function
 <span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  30.057   0.031  30.079</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p><code>change_symbols</code> uses a <code>for</code> loop to sort values into seven different cases, as demonstrated in <a href="#fig-change">Figure&nbsp;<span>10.3</span></a>.</p>
-<p>To vectorize <code>change_symbols</code>, create a logical test that can identify each case:</p>
+<p><code>change_symbols()</code> uses a <code>for</code> loop to sort values into seven different cases, as demonstrated in <a href="#fig-change">Figure&nbsp;<span>10.3</span></a>.</p>
+<p>To vectorize <code>change_symbols()</code>, create a logical test that can identify each case:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vec[vec <span class="sc">==</span> <span class="st">"DD"</span>]</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## "DD"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -524,7 +524,7 @@ Exercise: Vectorize a Function
 <div id="fig-change" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="images/hopr_1003.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;10.3: <code>change_many</code> does something different for each of seven cases.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10.3: <code>change_many()</code> does something different for each of seven cases.</figcaption><p></p>
 </figure>
 </div>
 <p>Then write code that can change the symbols for each case:</p>
@@ -535,7 +535,7 @@ Exercise: Vectorize a Function
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>vec[vec <span class="sc">==</span> <span class="st">"BB"</span>] <span class="ot">&lt;-</span> <span class="st">"jack"</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>vec[vec <span class="sc">==</span> <span class="st">"BBB"</span>] <span class="ot">&lt;-</span> <span class="st">"ten"</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>vec[vec <span class="sc">==</span> <span class="st">"0"</span>] <span class="ot">&lt;-</span> <span class="st">"nine"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>When you combine this into a function, you have a vectorized version of <code>change_symbols</code> that runs about 14 times faster:</p>
+<p>When you combine this into a function, you have a vectorized version of <code>change_symbols()</code> that runs about 14 times faster:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>change_vec <span class="ot">&lt;-</span> <span class="cf">function</span> (vec) {</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  vec[vec <span class="sc">==</span> <span class="st">"DD"</span>] <span class="ot">&lt;-</span> <span class="st">"joker"</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  vec[vec <span class="sc">==</span> <span class="st">"C"</span>] <span class="ot">&lt;-</span> <span class="st">"ace"</span></span>
@@ -562,7 +562,7 @@ Exercise: Vectorize a Function
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   user  system elapsed </span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.687   0.059   0.746 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here, a lookup table is 40 times faster than the original function.</p>
-<p><code>abs_loop</code> and <code>change_many</code> illustrate a characteristic of vectorized code: programmers often write slower, nonvectorized code by relying on unnecessary <code>for</code> loops, like the one in <code>change_many</code>. I think this is the result of a general misunderstanding about R. <code>for</code> loops do not behave the same way in R as they do in other languages, which means you should write code differently in R than you would in other languages.</p>
+<p><code>abs_loop()</code> and <code>change_many()</code> illustrate a characteristic of vectorized code: programmers often write slower, nonvectorized code by relying on unnecessary <code>for</code> loops, like the one in <code>change_many()</code>. I think this is the result of a general misunderstanding about R. <code>for</code> loops do not behave the same way in R as they do in other languages, which means you should write code differently in R than you would in other languages.</p>
 <p>When you write in languages like C and Fortran, you must compile your code before your computer can run it. This compilation step optimizes how the <code>for</code> loops in the code use your computer’s memory, which makes the <code>for</code> loops very fast. As a result, many programmers use <code>for</code> loops frequently when they write in C and Fortran.</p>
 <p>When you write in R, however, you do not compile your code. You skip this step, which makes programming in R a more user-friendly experience. Unfortunately, this also means you do not give your loops the speed boost they would receive in C or Fortran. As a result, your loops will run slower than the other operations we have studied: logical tests, subsetting, and element-wise execution. If you can write your code with the faster operations instead of a <code>for</code> loop, you should do so. No matter which language you write in, you should try to use the features of the language that run the fastest.</p>
 <div class="callout-tip callout callout-style-default callout-captioned">
@@ -614,7 +614,7 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>The authors of R use low-level languages like C and Fortran to write basic R functions, many of which use <code>for</code> loops. These functions are compiled and optimized before they become a part of R, which makes them quite fast.</p>
-<p>Whenever you see <code>.Primitive</code>, <code>.Internal</code>, or <code>.Call</code> written in a function’s definition, you can be confident the function is calling code from another language. You’ll get all of the speed advantages of that language by using the function.</p>
+<p>Whenever you see <code>.Primitive()</code>, <code>.Internal()</code>, or <code>.Call()</code> written in a function’s definition, you can be confident the function is calling code from another language. You’ll get all of the speed advantages of that language by using the function.</p>
 </div>
 </div>
 </section>
@@ -629,15 +629,15 @@ Tip
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(winnings)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9366984</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The estimated payout rate after 10 million runs is 0.937, which is very close to the true payout rate of 0.934. Note that I’m using the modified <code>score</code> function that treats diamonds as wilds.</p>
+<p>The estimated payout rate after 10 million runs is 0.937, which is very close to the true payout rate of 0.934. Note that I’m using the modified <code>score()</code> function that treats diamonds as wilds.</p>
 <p>If you run this simulation, you will notice that it takes a while to run. In fact, the simulation takes 342,308 seconds to run, which is about 5.7 minutes. This is not particularly impressive, and you can do better by using vectorized code:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000000</span>) {</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  winnings[i] <span class="ot">&lt;-</span> <span class="fu">play</span>()</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>})</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    user  system elapsed </span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 342.041   0.355 342.308 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The current <code>score</code> function is not vectorized. It takes a single slot combination and uses an <code>if</code> tree to assign a prize to it. This combination of an <code>if</code> tree with a <code>for</code> loop suggests that you could write a piece of vectorized code that takes <em>many</em> slot combinations and then uses logical subsetting to operate on them all at once.</p>
-<p>For example, you could rewrite <code>get_symbols</code> to generate <em>n</em> slot combinations and return them as an <em>n</em> x 3 matrix, like the one that follows. Each row of the matrix will contain one slot combination to be scored:</p>
+<p>The current <code>score()</code> function is not vectorized. It takes a single slot combination and uses an <code>if</code> tree to assign a prize to it. This combination of an <code>if</code> tree with a <code>for</code> loop suggests that you could write a piece of vectorized code that takes <em>many</em> slot combinations and then uses logical subsetting to operate on them all at once.</p>
+<p>For example, you could rewrite <code>get_symbols()</code> to generate <em>n</em> slot combinations and return them as an <em>n</em> x 3 matrix, like the one that follows. Each row of the matrix will contain one slot combination to be scored:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>get_many_symbols <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  wheel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"DD"</span>, <span class="st">"7"</span>, <span class="st">"BBB"</span>, <span class="st">"BB"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"0"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  vec <span class="ot">&lt;-</span> <span class="fu">sample</span>(wheel, <span class="at">size =</span> <span class="dv">3</span> <span class="sc">*</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
@@ -652,7 +652,7 @@ Tip
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] "0"   "0"  "BBB"</span></span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] "0"   "0"  "B"  </span></span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] "BBB" "0"  "0" </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You could also rewrite <code>play</code> to take a parameter, <code>n</code>, and return <code>n</code> prizes, in a data frame:</p>
+<p>You could also rewrite <code>play()</code> to take a parameter, <code>n</code>, and return <code>n</code> prizes, in a data frame:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>play_many <span class="ot">&lt;-</span> <span class="cf">function</span>(n) {</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  symb_mat <span class="ot">&lt;-</span> <span class="fu">get_many_symbols</span>(<span class="at">n =</span> n)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">w1 =</span> symb_mat[,<span class="dv">1</span>], <span class="at">w2 =</span> symb_mat[,<span class="dv">2</span>],</span>
@@ -661,9 +661,9 @@ Tip
 <p>This new function would make it easy to simulate a million, or even 10 million plays of the slot machine, which will be our goal. When we’re finished, you will be able to estimate the payout rate with:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plays &lt;- play_many(10000000))</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># mean(plays$prize)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now you just need to write <code>score_many</code>, a vectorized (matrix-ized?) version of <code>score</code> that takes an <em>n</em> x 3 matrix and returns <em>n</em> prizes. It will be difficult to write this function because <code>score</code> is already quite complicated. I would not expect you to feel confident doing this on your own until you have more practice and experience than we’ve been able to develop here.</p>
-<p>Should you like to test your skills and write a version of <code>score_many</code>, I recommend that you use the function <code>rowSums</code> within your code. It calculates the sum of each row of numbers (or logicals) in a matrix.</p>
-<p>If you would like to test yourself in a more modest way, I recommend that you study the following model <code>score_many</code> function until you understand how each part works and how the parts work together to create a vectorized function. To do this, it will be helpful to create a concrete example, like this:</p>
+<p>Now you just need to write <code>score_many()</code>, a vectorized (matrix-ized?) version of <code>score()</code> that takes an <em>n</em> x 3 matrix and returns <em>n</em> prizes. It will be difficult to write this function because <code>score()</code> is already quite complicated. I would not expect you to feel confident doing this on your own until you have more practice and experience than we’ve been able to develop here.</p>
+<p>Should you like to test your skills and write a version of <code>score_many()</code>, I recommend that you use the function <code>rowSums()</code> within your code. It calculates the sum of each row of numbers (or logicals) in a matrix.</p>
+<p>If you would like to test yourself in a more modest way, I recommend that you study the following model <code>score_many()</code> function until you understand how each part works and how the parts work together to create a vectorized function. To do this, it will be helpful to create a concrete example, like this:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>symbols <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"DD"</span>, <span class="st">"DD"</span>, <span class="st">"DD"</span>, </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"C"</span>, <span class="st">"DD"</span>, <span class="st">"0"</span>, </span>
@@ -680,7 +680,7 @@ Tip
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] "B"  "BB" "BBB"</span></span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] "C"  "C"  "0"  </span></span>
 <span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,] "7"  "DD" "DD" </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then you can run each line of <code>score_many</code> against the example and examine the results as you go.</p>
+<p>Then you can run each line of <code>score_many()</code> against the example and examine the results as you go.</p>
 <div class="callout callout callout-style-simple no-icon callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -691,7 +691,7 @@ Exercise: Test Your Understanding
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Study the model <code>score_many</code> function until you are satisfied that you understand how it works and could write a similar function yourself.</p>
+<p>Study the model <code>score_many()</code> function until you are satisfied that you understand how it works and could write a similar function yourself.</p>
 </div>
 </div>
 <div class="callout callout callout-style-simple no-icon callout-captioned">
@@ -704,11 +704,11 @@ Exercise: Advanced Challenge
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Instead of examining the model answer, write your own vectorized version of <code>score</code>. Assume that the data is stored in an <em>n</em> × 3 matrix where each row of the matrix contains one combination of slots to be scored.</p>
-<p>You can use the version of <code>score</code> that treats diamonds as wild or the version of <code>score</code> that doesn’t. However, the model answer will use the version treating diamonds as wild.</p>
+<p>Instead of examining the model answer, write your own vectorized version of <code>score()</code>. Assume that the data is stored in an <em>n</em> × 3 matrix where each row of the matrix contains one combination of slots to be scored.</p>
+<p>You can use the version of <code>score()</code> that treats diamonds as wild or the version of <code>score()</code> that doesn’t. However, the model answer will use the version treating diamonds as wild.</p>
 </div>
 </div>
-<p><code>score_many</code> is a vectorized version of <code>score</code>. You can use it to run the simulation at the start of this section in a little over 20 seconds. This is 17 times faster than using a <code>for</code> loop:</p>
+<p><code>score_many()</code> is a vectorized version of <code>score()</code>. You can use it to run the simulation at the start of this section in a little over 20 seconds. This is 17 times faster than using a <code>for</code> loop:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># symbols should be a matrix with a column for each slot machine window</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>score_many <span class="ot">&lt;-</span> <span class="cf">function</span>(symbols) {</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -780,7 +780,7 @@ Exercise: Advanced Challenge
 <section id="loops-versus-vectorized-code" class="level3" data-number="10.4.1">
 <h3 data-number="10.4.1" class="anchored" data-anchor-id="loops-versus-vectorized-code"><span class="header-section-number">10.4.1</span> Loops Versus Vectorized Code</h3>
 <p>In many languages, <code>for</code> loops run very fast. As a result, programmers learn to use <code>for</code> loops whenever possible when they code. Often these programmers continue to rely on <code>for</code> loops when they begin to program in R, usually without taking the simple steps needed to optimize R’s <code>for</code> loops. These programmers may become disillusioned with R when their code does not work as fast as they would like. If you think that this may be happening to you, examine how often you are using <code>for</code> loops and what you are using them to do. If you find yourself using <code>for</code> loops for every task, there is a good chance that you are “speaking R with a C accent.” The cure is to learn to write and use vectorized code.</p>
-<p>This doesn’t mean that <code>for</code> loops have no place in R. <code>for</code> loops are a very useful feature; they can do many things that vectorized code cannot do. You also should not become a slave to vectorized code. Sometimes it would take more time to rewrite code in vectorized format than to let a <code>for</code> loop run. For example, would it be faster to let the slot simulation run for 5.7 minutes or to rewrite <code>score</code>?</p>
+<p>This doesn’t mean that <code>for</code> loops have no place in R. <code>for</code> loops are a very useful feature; they can do many things that vectorized code cannot do. You also should not become a slave to vectorized code. Sometimes it would take more time to rewrite code in vectorized format than to let a <code>for</code> loop run. For example, would it be faster to let the slot simulation run for 5.7 minutes or to rewrite <code>score()</code>?</p>
 </section>
 </section>
 <section id="summary" class="level2" data-number="10.5">
@@ -790,7 +790,7 @@ Exercise: Advanced Challenge
 </section>
 <section id="project-3-wrap-up" class="level2" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="project-3-wrap-up"><span class="header-section-number">10.6</span> Project 3 Wrap-up</h2>
-<p>You have now written your first program in R, and it is a program that you should be proud of. <code>play</code> is not a simple <code>hello world</code> exercise, but a real program that does a real task in a complicated way.</p>
+<p>You have now written your first program in R, and it is a program that you should be proud of. <code>play()</code> is not a simple <code>hello world</code> exercise, but a real program that does a real task in a complicated way.</p>
 <p>Writing new programs in R will always be challenging because programming depends so much on your own creativity, problem-solving ability, and experience writing similar types of programs. However, you can use the suggestions in this chapter to make even the most complicated program manageable: divide tasks into simple steps and cases, work with concrete examples, and describe possible solutions in English.</p>
 <p>This project completes the education you began in <a href="basics.html">The Very Basics</a>. You can now use R to handle data, which has augmented your ability to analyze data. You can:</p>
 <ul>

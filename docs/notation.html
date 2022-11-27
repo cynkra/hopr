@@ -543,11 +543,11 @@ Exercise: Deal a Card
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>You can use any of the systems that return the first row of your data frame to write a <code>deal</code> function. I’ll use positive integers and blanks because I think they are easy to understand:</p>
+<p>You can use any of the systems that return the first row of your data frame to write a <code>deal()</code> function. I’ll use positive integers and blanks because I think they are easy to understand:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>deal <span class="ot">&lt;-</span> <span class="cf">function</span>(cards) {</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  cards[<span class="dv">1</span>, ]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The function does exactly what you want: it deals the top card from your data set. However, the function becomes less impressive if you run <code>deal</code> over and over again:</p>
+<p>The function does exactly what you want: it deals the top card from your data set. However, the function becomes less impressive if you run <code>deal()</code> over and over again:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deal</span>(deck)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="do">## face   suit value</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="do">## king spades    13</span></span>
@@ -559,7 +559,7 @@ Exercise: Deal a Card
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">deal</span>(deck)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## face   suit value</span></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="do">## king spades    13</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>deal</code> always returns the king of spades because <code>deck</code> doesn’t know that we’ve dealt the card away. Hence, the king of spades stays where it is, at the top of the deck ready to be dealt again. This is a difficult problem to solve, and we will <em>deal</em> with it in <a href="environments.html">Environments</a>. In the meantime, you can fix the problem by shuffling your deck after every deal. Then a new card will always be at the top.</p>
+<p><code>deal()</code> always returns the king of spades because <code>deck</code> doesn’t know that we’ve dealt the card away. Hence, the king of spades stays where it is, at the top of the deck ready to be dealt again. This is a difficult problem to solve, and we will <em>deal</em> with it in <a href="environments.html">Environments</a>. In the meantime, you can fix the problem by shuffling your deck after every deal. Then a new card will always be at the top.</p>
 <p>Shuffling is a temporary compromise: the probabilities at play in your deck will not match the probabilities that occur when you play a game with a single deck of cards. For example, there will still be a probability that the king of spades appears twice in a row. However, things are not as bad as they may seem. Most casinos use five or six decks at a time in card games to prevent card counting. The probabilities that you would encounter in those situations are very close to the ones we will create here.</p>
 </section>
 <section id="shuffle-the-deck" class="level2" data-number="4.3">
@@ -587,7 +587,7 @@ Exercise: Deal a Card
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    ten spades    10</span></span>
 <span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   nine spades     9</span></span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  eight spades     8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>R complies. You’ll get all the rows back, and they’ll come in the order you ask for them. If you want the rows to come in a random order, then you need to sort the integers from 1 to 52 into a random order and use the results as a row index. How could you generate such a random collection of integers? With our friendly neighborhood <code>sample</code> function:</p>
+<p>R complies. You’ll get all the rows back, and they’ll come in the order you ask for them. If you want the rows to come in a random order, then you need to sort the integers from 1 to 52 into a random order and use the results as a row index. How could you generate such a random collection of integers? With our friendly neighborhood <code>sample()</code> function:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>random <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">52</span>, <span class="at">size =</span> <span class="dv">52</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>random</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  35 28 39  9 18 29 26 45 47 48 23 22 21 16 32 38  1 15 20</span></span>
@@ -614,10 +614,10 @@ Exercise: Shuffle a Deck
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Use the preceding ideas to write a <code>shuffle</code> function. <code>shuffle</code> should take a data frame and return a shuffled copy of the data frame.</p>
+<p>Use the preceding ideas to write a <code>shuffle()</code> function. <code>shuffle()</code> should take a data frame and return a shuffled copy of the data frame.</p>
 </div>
 </div>
-<p>Your <code>shuffle</code> function will look like the one that follows:</p>
+<p>Your <code>shuffle()</code> function will look like the one that follows:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>shuffle <span class="ot">&lt;-</span> <span class="cf">function</span>(cards) { </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  random <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">52</span>, <span class="at">size =</span> <span class="dv">52</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  cards[random, ]</span>
@@ -641,7 +641,7 @@ Exercise: Shuffle a Deck
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 12 11 10  9  8  7  6  5  4  3  2  1 13 12 11 10  9  8  7</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  6  5  4  3  2  1 13 12 11 10  9  8  7  6  5  4  3  2  1 13</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 11 10  9  8  7  6  5  4  3  2  1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>R will return all of the values in the column as a vector. This <code>$</code> notation is incredibly useful because you will often store the variables of your data sets as columns in a data frame. From time to time, you’ll want to run a function like <code>mean</code> or <code>median</code> on the values in a variable. In R, these functions expect a vector of values as input, and <code>deck$value</code> delivers your data in just the right format:</p>
+<p>R will return all of the values in the column as a vector. This <code>$</code> notation is incredibly useful because you will often store the variables of your data sets as columns in a data frame. From time to time, you’ll want to run a function like <code>mean()</code> or <code>median()</code> on the values in a variable. In R, these functions expect a vector of values as input, and <code>deck$value</code> delivers your data in just the right format:</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(deck<span class="sc">$</span>value)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 7</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -699,8 +699,8 @@ Never attach
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In R’s early days, it became popular to use <code>attach()</code> on a data set once you had it loaded. Don’t do this! <code>attach</code> recreates a computing environment similar to those used in other statistics applications like Stata and SPSS, which crossover users liked. However, R is not Stata or SPSS. R is optimized to use the R computing environment, and running <code>attach()</code> can cause confusion with some R functions.</p>
-<p>What does <code>attach()</code> do? On the surface, <code>attach</code> saves you typing. If you attach the <code>deck</code> data set, you can refer to each of its variables by name; instead of typing <code>deck$face</code>, you can just type <code>face</code>. But typing isn’t bad. It gives you a chance to be explicit, and in computer programming, explicit is good. Attaching a data set creates the possibility that R will confuse two variable names. If this occurs within a function, you’re likely to get unusable results and an unhelpful error message to explain what happened.</p>
+<p>In R’s early days, it became popular to use <code>attach()</code> on a data set once you had it loaded. Don’t do this! <code>attach()</code> recreates a computing environment similar to those used in other statistics applications like Stata and SPSS, which crossover users liked. However, R is not Stata or SPSS. R is optimized to use the R computing environment, and running <code>attach()</code> can cause confusion with some R functions.</p>
+<p>What does <code>attach()</code> do? On the surface, <code>attach()</code> saves you typing. If you attach the <code>deck</code> data set, you can refer to each of its variables by name; instead of typing <code>deck$face</code>, you can just type <code>face</code>. But typing isn’t bad. It gives you a chance to be explicit, and in computer programming, explicit is good. Attaching a data set creates the possibility that R will confuse two variable names. If this occurs within a function, you’re likely to get unusable results and an unhelpful error message to explain what happened.</p>
 </div>
 </div>
 <p>Now that you are an expert at retrieving values stored in R, let’s summarize what you’ve accomplished.</p>
