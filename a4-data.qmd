@@ -409,7 +409,7 @@ wb <- loadWorkbook("file.xlsx")
 
 Next, read a spreadsheet from the workbook with `readWorksheet()`, which takes several arguments. The first argument should be a workbook object created with `loadWorkbook()`. The next argument, `sheet`, should be the name of the spreadsheet in the workbook that you would like to read into R. This will be the name that appears on the bottom tab of the spreadsheet. You can also give `sheet` a number, which specifies the sheet that you want to read in (one for the first sheet, two for the second, and so on).
 
-`readWorksheet()` then takes four arguments that specify a bounding box of cells to read in: `startRow()`, `startCol()`, `endRow`, and `endCol`. Use `startRow()` and `startCol()` to describe the cell in the top-left corner of the bounding box of cells that you wish to read in. Use `endRow` and `endCol` to specify the cell in the bottom-right corner of the bounding box. Each of these arguments takes a number. If you do not supply bounding arguments, `readWorksheet()` will read in the rectangular region of cells in the spreadsheet that appears to contain data. `readWorksheet()` will assume that this region contains a header row, but you can tell it otherwise with `header = FALSE`.
+`readWorksheet()` then takes four arguments that specify a bounding box of cells to read in: `startRow`, `startCol`, `endRow`, and `endCol`. Use `startRow` and `startCol` to describe the cell in the top-left corner of the bounding box of cells that you wish to read in. Use `endRow` and `endCol` to specify the cell in the bottom-right corner of the bounding box. Each of these arguments takes a number. If you do not supply bounding arguments, `readWorksheet()` will read in the rectangular region of cells in the spreadsheet that appears to contain data. `readWorksheet()` will assume that this region contains a header row, but you can tell it otherwise with `header = FALSE`.
 
 So to read in the first worksheet from `wb`, you could use:
 
@@ -441,7 +441,7 @@ Next, you need to create a worksheet inside your workbook object with `createShe
 createSheet(wb, "Sheet 1")
 ```
 
-Then you can save your data frame or matrix to the sheet with `writeWorksheet()`. The first argument of `writeWorksheet()`, `object`, is the workbook to write the data to. The second argument, `data`, is the data to write. The third argument, `sheet`, is the name of the sheet to write it to. The next two arguments, `startRow()` and `startCol()`, tell R where in the spreadsheet to place the upper-left cell of the new data. These arguments each default to 1. Finally, you can use `header` to tell R whether your column names should be written with the data:
+Then you can save your data frame or matrix to the sheet with `writeWorksheet()`. The first argument of `writeWorksheet()`, `object`, is the workbook to write the data to. The second argument, `data`, is the data to write. The third argument, `sheet`, is the name of the sheet to write it to. The next two arguments, `startRow` and `startCol`, tell R where in the spreadsheet to place the upper-left cell of the new data. These arguments each default to 1. Finally, you can use `header` to tell R whether your column names should be written with the data:
 
 ``` r
 writeWorksheet(wb, data = poker, sheet = "Sheet 1")
