@@ -6,9 +6,9 @@ book:
   title: "Hands-On Programming with R"
   author: "Garrett Grolemund"
   cover-image: images/cover.png
-  site-url: https://rstudio-education.github.io/hopr/
-  repo-url: https://github.com/jjallaire/hopr/
-  repo-branch: master
+  site-url: https://cynkra.github.io/hopr/
+  repo-url: https://github.com/cynkra/hopr/
+  repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
   chapters:
